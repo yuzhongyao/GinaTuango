@@ -12,7 +12,6 @@ CREATE TABLE addresses(
     FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
-
 --user
 DROP TABLE IF EXISTS users;
 CREATE TABLE users(
@@ -27,6 +26,12 @@ CREATE TABLE users(
 
 );
 
+DROP TABLE IF EXISTS categories;
+CREATE TABLE categories(
+    category_id SERIAL PRIMARY KEY,
+    category_name VARCHAR(50)
+);
+
 DROP TABLE IF EXISTS items;
 CREATE TABLE items (
     item_id SERIAL PRIMARY KEY,
@@ -34,8 +39,19 @@ CREATE TABLE items (
     description TEXT,
     category_id INT NOT NULL,
     stock NUMERIC(10, 2),
-    price NUMERIC(10, 2)
+    price NUMERIC(10, 2),
+    FOREIGN KEY(category_id) REFERENCES categories(category_id)
+
 );
+
+DROP TABLE IF EXISTS images;
+CREATE TABLE images(
+    image_id SERIAL PRIMARY KEY,
+    item_id INT,
+    url VARCHAR(255),
+    FOREIGN KEY(item_id) REFERENCES items(item_id)
+);
+
 
 --sale type e.g. bought 1 case, 3 pounds, 2 bags, etc
 DROP TABLE IF EXISTS itemSaleTypes;
