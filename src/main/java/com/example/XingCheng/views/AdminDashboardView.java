@@ -18,20 +18,20 @@ public class AdminDashboardView extends VerticalLayout implements BeforeEnterObs
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        Object userObject = VaadinSession.getCurrent().getAttribute("user");
-        if(userObject instanceof User){
-            User user = (User) userObject;
-            //non admins redirected to user dashboard
-            if(!user.isAdmin()){
-                beforeEnterEvent.rerouteTo("/user");
-            }
-            //admin already logged in
-            else{
-                //enter
-            }
-        }
-        else{
-            beforeEnterEvent.rerouteTo("");
-        }
+//        Object userObject = VaadinSession.getCurrent().getAttribute("user");
+//        if(userObject instanceof User){
+//            User user = (User) userObject;
+//            //non admins redirected to user dashboard
+//            if(!user.isAdmin()){
+//                beforeEnterEvent.rerouteTo("/user");
+//            }
+//            //admin already logged in
+//            else{
+//                //enter
+//            }
+//        }
+//        else{
+//            beforeEnterEvent.rerouteTo(LoginView.class);
+//        }
     }
 }

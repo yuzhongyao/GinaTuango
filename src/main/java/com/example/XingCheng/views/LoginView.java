@@ -6,6 +6,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -21,7 +22,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         this.addClassName("login-form");
 
         H1 title = new H1();
-        title.setText("GINA");
+        title.setText("GINA TUANGO");
 
         H4 greeting = new H4();
         greeting.setText("Please Login");
@@ -33,15 +34,26 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         PasswordField password = new PasswordField();
         password.setLabel("Password:");
 
+        //button div
+        HorizontalLayout buttonContainer = new HorizontalLayout();
+        buttonContainer.setAlignItems(Alignment.CENTER);
+
         Button login = new Button();
         login.setText("LOGIN");
+
+        Button apply = new Button();
+        apply.setText("APPLY");
+
+        buttonContainer.add(apply,login);
+
+
 
         //background image div
         Div imageContainer = new Div();
         imageContainer.setWidthFull();
         imageContainer.addClassName("image-container");
 
-        add(title,greeting,email,password,login);
+        add(title,greeting,email,password,buttonContainer);
 
 
     }

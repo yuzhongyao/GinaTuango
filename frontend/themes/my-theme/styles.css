@@ -9,3 +9,13 @@
     justify-content: center; /* Center items vertically */
     padding-top: 50px;
 }
+
+vaadin-app-layout::part(drawer){
+
+}
+
+.center{
+    text-align:center;
+    margin-left:auto;
+
+}
