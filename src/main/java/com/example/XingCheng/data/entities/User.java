@@ -1,12 +1,18 @@
-package com.example.XingCheng.data.models;
+package com.example.XingCheng.data.entities;
 
 import com.example.XingCheng.data.models.Address;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String email;
     private String phone;
+    @ManyToOne
     private Address address;
     private boolean isAdmin;
 

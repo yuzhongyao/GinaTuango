@@ -1,6 +1,12 @@
 package com.example.XingCheng.data.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "addresses")
 public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String street;
     private String postal;

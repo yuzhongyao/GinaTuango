@@ -1,10 +1,9 @@
 package com.example.XingCheng.dev;
 
+import com.example.XingCheng.data.entities.User;
 import com.example.XingCheng.data.models.Address;
-import com.example.XingCheng.data.models.User;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
-import com.vaadin.flow.server.VaadinSession;
 import org.springframework.stereotype.Component;
 
 @Component
