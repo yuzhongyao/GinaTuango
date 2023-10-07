@@ -3,13 +3,11 @@
 DROP TABLE IF EXISTS addresses;
 CREATE TABLE addresses(
     address_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
     street VARCHAR(100),
     postal VARCHAR(7),
     city VARCHAR(50),
     province VARCHAR(30),
-    country VARCHAR(30),
-    FOREIGN KEY(user_id) REFERENCES users(user_id)
+    country VARCHAR(30)
 );
 
 --user
@@ -60,16 +58,6 @@ CREATE TABLE itemSaleTypes(
     type_name VARCHAR(50) NOT NULL
 );
 
-DROP TABLE IF EXISTS orders;
-CREATE TABLE orders(
-    order_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
-    sale_id INT NOT NULL,
-    sale_date DATE NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(user_id),
-    FOREIGN KEY(sale_id) REFERENCES itemSales(sale_id)
-);
-
 DROP TABLE IF EXISTS itemSales;
 CREATE TABLE itemSales(
     sale_id SERIAL PRIMARY KEY,
@@ -81,6 +69,18 @@ CREATE TABLE itemSales(
     FOREIGN KEY (item_id) REFERENCES items(item_id),
     FOREIGN KEY (type_id) REFERENCES itemSaleTypes(type_id)
 );
+
+DROP TABLE IF EXISTS orders;
+CREATE TABLE orders(
+    order_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    sale_id INT NOT NULL,
+    sale_date DATE NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(user_id),
+    FOREIGN KEY(sale_id) REFERENCES itemSales(sale_id)
+);
+
+
 
 
 
