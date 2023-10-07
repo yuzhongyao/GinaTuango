@@ -1,13 +1,9 @@
 package com.example.XingCheng.data.entities;
 
 import com.example.XingCheng.data.models.Category;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
-@Entity
 public class Item {
 
-    @Id
     private int id;
     private String name;
     private String description;
