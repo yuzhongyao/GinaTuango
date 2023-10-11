@@ -1,6 +1,5 @@
 package com.example.XingCheng.data.entities;
 
-import com.example.XingCheng.data.models.Address;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,11 +8,18 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String name;
+    @Column
     private String email;
+    @Column
     private String phone;
     @ManyToOne
     private Address address;
+
+    @Column
+    private String password;
+    @Column
     private boolean isAdmin;
 
     public User(int id, String name, String email, String phone, Address address, boolean isAdmin) {
@@ -65,9 +71,17 @@ public class User {
         this.address = address;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public boolean isAdmin() {
         return isAdmin;
     }
+
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
@@ -81,6 +95,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address=" + address +
+                ", password='" + password + '\'' +
                 ", isAdmin=" + isAdmin +
                 '}';
     }

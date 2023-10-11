@@ -1,4 +1,4 @@
-package com.example.XingCheng.data.models;
+package com.example.XingCheng.data.entities;
 
 import jakarta.persistence.*;
 
@@ -8,14 +8,17 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String street;
+    @Column
     private String postal;
+    @Column
     private String city;
+    @Column
     private String province;
+    @Column
     private String country;
 
-    public Address(){
-    }
 
     public Address(int id, String street, String postal, String city, String province, String country){
         this.id=id;

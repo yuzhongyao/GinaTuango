@@ -1,16 +1,25 @@
 package com.example.XingCheng.data.entities;
 
-import com.example.XingCheng.data.models.Category;
+import jakarta.persistence.*;
 
+@Entity
 public class Item {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String name;
+    @Column
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
+    @OneToMany(mappedBy = "item")
     private String[] images;
-    
+
+    @Column
     private double stock;
+    @Column
     private double price;
 
     public Item(int id, String name, String description, Category category, double stock, double price) {
