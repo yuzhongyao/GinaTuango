@@ -73,7 +73,7 @@ CREATE TABLE itemSales(
     quantity NUMERIC(10, 2) NOT NULL,
     type_id INT NOT NULL,
     sale_date DATE NOT NULL,
-    total_cost NUMERIC(10,2),
+    item_cost NUMERIC(10,2),
     order_id INT,
     isOnSale BOOLEAN,
     FOREIGN KEY (item_id) REFERENCES items(item_id),
