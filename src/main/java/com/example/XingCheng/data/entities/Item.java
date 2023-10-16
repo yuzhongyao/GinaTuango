@@ -16,7 +16,7 @@ public class Item {
     @JoinColumn(name = "category_id")
     private Category category;
     @OneToMany(mappedBy = "item")
-    private String[] images;
+    private Image[] images;
 
     @Column
     private double stock;
@@ -79,11 +79,11 @@ public class Item {
     public void setPrice(double price) {
         this.price = price;
     }
-    public String[] getImages() {
+    public Image[] getImages() {
         return images;
     }
 
-    public void setImages(String[] images) {
+    public void setImages(Image[] images) {
         this.images = images;
     }
 

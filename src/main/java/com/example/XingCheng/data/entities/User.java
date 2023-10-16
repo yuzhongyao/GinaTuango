@@ -87,6 +87,7 @@ public class User {
         isAdmin = admin;
     }
 
+
     @Override
     public String toString() {
         return "User{" +

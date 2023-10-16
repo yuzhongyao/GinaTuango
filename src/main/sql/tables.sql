@@ -19,7 +19,7 @@ CREATE TABLE users(
     email VARCHAR(100),
     phone VARCHAR(16),
     address_id int,
-    isAdmin BOOLEAN,
+    is_admin BOOLEAN,
     FOREIGN KEY(address_id) REFERENCES addresses(address_id)
 
 );
@@ -63,7 +63,7 @@ CREATE TABLE orders(
     order_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     sale_date DATE NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES users(user_id),
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
 DROP TABLE IF EXISTS itemSales cascade;

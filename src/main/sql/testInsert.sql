@@ -9,7 +9,7 @@ VALUES
   ('202 Cedar St', '22222', 'City E', 'Province E', 'Country E');
 
 -- Inserts for Users table
-INSERT INTO users (user_name, password, email, phone, address_id, isAdmin)
+INSERT INTO users (user_name, password, email, phone, address_id, is_admin)
 VALUES
   ('User1', 'Password1', 'user1@example.com', '111-111-1111', 1, true),
   ('User2', 'Password2', 'user2@example.com', '222-222-2222', 2, false),
@@ -69,7 +69,7 @@ VALUES
   (5, '2023-09-05');
 
 -- Inserts for ItemSales table
-INSERT INTO itemSales (item_id, quantity, type_id, sale_date, total_cost, order_id, isOnSale)
+INSERT INTO itemSales (item_id, quantity, type_id, sale_date, item_cost, order_id, isOnSale)
 VALUES
   (1, 5.0, 1, '2023-09-01', 49.95, 1, true),
   (2, 3.0, 2, '2023-09-02', 59.97, 2, false),
