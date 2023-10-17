@@ -1,17 +1,30 @@
 package com.example.XingCheng.data.entities;
 
-import com.example.XingCheng.data.models.Category;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "items")
 public class Item {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String name;
+    @Column
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
-    private String[] images;
-    
+    @OneToMany(mappedBy = "item")
+    private Image[] images;
+
+    @Column
     private double stock;
+    @Column
     private double price;
+
+    public Item() {
+    }
 
     public Item(int id, String name, String description, Category category, double stock, double price) {
         this.id = id;
@@ -69,11 +82,11 @@ public class Item {
     public void setPrice(double price) {
         this.price = price;
     }
-    public String[] getImages() {
+    public Image[] getImages() {
         return images;
     }
 
-    public void setImages(String[] images) {
+    public void setImages(Image[] images) {
         this.images = images;
     }
 

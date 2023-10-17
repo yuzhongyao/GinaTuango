@@ -1,20 +1,28 @@
 package com.example.XingCheng.views;
 
 
-import com.example.XingCheng.data.models.User;
+import com.example.XingCheng.data.entities.User;
+import com.example.XingCheng.services.UserService;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "/admin",layout = AdminLayout.class)
 public class AdminDashboardView extends VerticalLayout implements BeforeEnterObserver {
 
 
-    public AdminDashboardView(){
+
+    @Autowired
+    public AdminDashboardView(UserService service){
 
     }
+
+
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
