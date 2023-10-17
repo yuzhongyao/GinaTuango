@@ -18,6 +18,9 @@ public class Order {
     @Column
     private LocalDate date;
 
+    public Order() {
+    }
+
     public Order(int id, User user, LocalDate date) {
         this.id = id;
         this.user = user;

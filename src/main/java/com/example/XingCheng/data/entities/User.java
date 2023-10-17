@@ -7,9 +7,9 @@ import jakarta.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int user_id;
     @Column
-    private String name;
+    private String user_name;
     @Column
     private String email;
     @Column
@@ -20,31 +20,34 @@ public class User {
     @Column
     private String password;
     @Column
-    private boolean isAdmin;
+    private boolean is_admin;
+
+    public User() {
+    }
 
     public User(int id, String name, String email, String phone, Address address, boolean isAdmin) {
-        this.id = id;
-        this.name = name;
+        this.user_id = id;
+        this.user_name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.isAdmin = isAdmin;
+        this.is_admin = isAdmin;
     }
 
     public int getId() {
-        return id;
+        return user_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.user_id = id;
     }
 
     public String getName() {
-        return name;
+        return user_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.user_name = name;
     }
 
     public String getEmail() {
@@ -79,25 +82,25 @@ public class User {
         this.password = password;
     }
     public boolean isAdmin() {
-        return isAdmin;
+        return is_admin;
     }
 
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        is_admin = admin;
     }
 
 
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "id=" + user_id +
+                ", name='" + user_name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address=" + address +
                 ", password='" + password + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", isAdmin=" + is_admin +
                 '}';
     }
 }

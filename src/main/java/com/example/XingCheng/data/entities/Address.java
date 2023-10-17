@@ -19,6 +19,8 @@ public class Address {
     @Column
     private String country;
 
+    public Address() {
+    }
 
     public Address(int id, String street, String postal, String city, String province, String country){
         this.id=id;

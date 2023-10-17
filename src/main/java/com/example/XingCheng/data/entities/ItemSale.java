@@ -36,6 +36,8 @@ public class ItemSale {
     @Column
     private Boolean isOnSale;
 
+    public ItemSale() {
+    }
 
     public ItemSale(int id, Item item, double quantity, ItemSaleType type, LocalDate date, Double cost, Order order, Boolean isOnSale) {
         this.id = id;

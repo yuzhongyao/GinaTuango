@@ -13,6 +13,9 @@ public class ItemSaleType {
     @Column
     private String type;
 
+    public ItemSaleType() {
+    }
+
     public ItemSaleType(int id, String type) {
         this.id = id;
         this.type = type;

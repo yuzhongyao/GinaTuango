@@ -23,6 +23,9 @@ public class Item {
     @Column
     private double price;
 
+    public Item() {
+    }
+
     public Item(int id, String name, String description, Category category, double stock, double price) {
         this.id = id;
         this.name = name;

@@ -19,6 +19,10 @@ public class Image {
 
     // Constructors, getters, and setters
 
+
+    public Image() {
+    }
+
     public Image(int id, Item item, String imageUrl) {
         this.id = id;
         this.item = item;
