@@ -15,6 +15,7 @@ public class User {
     @Column
     private String phone;
     @ManyToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
     @Column

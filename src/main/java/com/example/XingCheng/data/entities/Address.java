@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int address_id;
     @Column
     private String street;
     @Column
@@ -23,7 +23,7 @@ public class Address {
     }
 
     public Address(int id, String street, String postal, String city, String province, String country){
-        this.id=id;
+        this.address_id=id;
         this.street=street;
         this.postal=postal;
         this.city=city;
@@ -32,11 +32,11 @@ public class Address {
     }
 
     public int getId() {
-        return id;
+        return address_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.address_id = id;
     }
 
     public String getStreet() {
@@ -77,5 +77,15 @@ public class Address {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    @Override
+    public String toString() {
+        return getStreet() + ", " +
+                getCity() + ", " +
+                getProvince() + " " +
+                getPostal() + ", " +
+                getCountry();
+
     }
 }
