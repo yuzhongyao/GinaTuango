@@ -1,6 +1,7 @@
 package com.example.XingCheng.views;
 
 import com.example.XingCheng.data.entities.User;
+import com.example.XingCheng.views.components.LoginForm;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
@@ -23,27 +24,6 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         H1 title = new H1();
         title.setText("GINA TUANGO");
 
-        H4 greeting = new H4();
-        greeting.setText("Please Login");
-
-        EmailField email = new EmailField();
-        email.setLabel("Email:");
-
-
-        PasswordField password = new PasswordField();
-        password.setLabel("Password:");
-
-        //button div
-        HorizontalLayout buttonContainer = new HorizontalLayout();
-        buttonContainer.setAlignItems(Alignment.CENTER);
-
-        Button login = new Button();
-        login.setText("LOGIN");
-
-        Button apply = new Button();
-        apply.setText("APPLY");
-
-        buttonContainer.add(apply,login);
 
 
 
@@ -52,7 +32,8 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         imageContainer.setWidthFull();
         imageContainer.addClassName("image-container");
 
-        add(title,greeting,email,password,buttonContainer);
+        add(title, new LoginForm());
+
 
 
     }
