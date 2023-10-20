@@ -1,6 +1,7 @@
 package com.example.XingCheng.views.components;
 
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
@@ -80,6 +81,10 @@ public class ApplyForm extends VerticalLayout {
                 sendEmail(name, number, message);
                 notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
                 showNotification("Application sent successfully!",true);
+                nameField.clear();
+                numberField.clear();
+                messageArea.clear();
+//                UI.getCurrent().navigate("/");
             }catch (Exception e){
                 logger.error("Error sending email: {}", e.getMessage(), e);
                 showNotification("An error occurred while applying. Please try again later.",false);
