@@ -9,10 +9,10 @@ import org.springframework.context.annotation.ComponentScan;
 @Theme("my-theme")
 @SpringBootApplication
 @ComponentScan(basePackages = "com.example.XingCheng")
-public class XingChengApplication implements AppShellConfigurator {
+public class GinaTuangoApplication implements AppShellConfigurator {
 
 	public static void main(String[] args) {
-		SpringApplication.run(XingChengApplication.class, args);
+		SpringApplication.run(GinaTuangoApplication.class, args);
 	}
 
 }

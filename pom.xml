@@ -11,8 +11,8 @@
 	<groupId>com.example</groupId>
 	<artifactId>GinaTuango</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>XingCheng</name>
-	<description>Xing Cheng</description>
+	<name>GinaTuango</name>
+	<description>GinaTuango</description>
 	<properties>
 		<java.version>20</java.version>
 		<vaadin.version>24.1.10</vaadin.version>
