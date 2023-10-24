@@ -1,22 +1,41 @@
 package com.example.ginatuango.views;
 
 
-import com.example.ginatuango.services.UserService;
+import com.example.ginatuango.services.CustomService;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Route(value = "/admin",layout = AdminLayout.class)
 public class AdminDashboardView extends VerticalLayout implements BeforeEnterObserver {
 
 
+    private final CustomService customService;
+    Grid<Object[]> orderSum = new Grid<>();
 
     @Autowired
-    public AdminDashboardView(UserService service){
+    public AdminDashboardView(CustomService customService) {
+        this.customService = customService;
+        configureGrid();
 
+        H1 title = new H1();
+        title.setText("Todays Orders");
+        title.addClassName("center");
+        title.setWidthFull();
+
+        add(title);
+        add(orderSum);
     }
+
 
 
 
@@ -38,4 +57,27 @@ public class AdminDashboardView extends VerticalLayout implements BeforeEnterObs
 //            beforeEnterEvent.rerouteTo(LoginView.class);
 //        }
     }
+
+
+    private void configureGrid(){
+        List<Object[]> rows = customService.getTodaysOrders();
+        ListDataProvider<Object[]> dataProvider = DataProvider.ofCollection(rows);
+        orderSum.setDataProvider(dataProvider);
+
+        orderSum.addColumn(arr -> arr[0]).setHeader("ID");
+        orderSum.addColumn(arr -> arr[1]).setHeader("Item");
+        orderSum.addColumn(arr -> arr[2]).setHeader("Total");
+        orderSum.addColumn(arr -> arr[3]).setHeader("Sale Type");
+        orderSum.addColumn(arr -> arr[4]).setHeader("Sale");
+//        orderSum.addColumn((int[])rows.get(0)).setHeader("ID");
+//        orderSum.addColumn().setHeader("Item");
+//        orderSum.addColumn().setHeader("Total");
+//        orderSum.addColumn().setHeader("Type");
+//        orderSum.addColumn().setHeader("Sale");
+    }
+
+
+
+
 }
+

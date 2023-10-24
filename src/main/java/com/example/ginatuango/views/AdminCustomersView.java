@@ -21,6 +21,8 @@ public class AdminCustomersView extends VerticalLayout {
 
         H1 userTitle = new H1();
         userTitle.setText("Users");
+        userTitle.addClassName("center");
+        userTitle.setWidthFull();
         configureUserGrid();
 
         add(userTitle, usersGrid);
