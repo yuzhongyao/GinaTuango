@@ -21,7 +21,7 @@ public class CustomService {
     }
 
     public List<Object[]> getTodaysOrders(){
-//        return customRepository.getTodaysOrders(LocalDate.of(2023,9,1));
+//        return customRepository.getTodaysOrders(LocalDate.of(2023,9,2));
         return customRepository.getTodaysOrders(LocalDate.now(ZoneId.of("America/New_York")));
     }
 
