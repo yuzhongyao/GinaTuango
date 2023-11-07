@@ -5,6 +5,8 @@ import com.example.ginatuango.services.OrderService;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.OptionalParameter;
@@ -14,12 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Route(value = "/orders",layout = AdminLayout.class)
-public class AdminOrdersView extends VerticalLayout implements HasUrlParameter<Integer> {
+public class AdminOrdersView extends VerticalLayout {
 
     private final OrderService orderService;
     Grid<Order> orderGrid = new Grid<>(Order.class, false);
-    private boolean hasParameter = false;
-    private int orderId = -1;
+
 
     @Autowired
     public AdminOrdersView(OrderService orderService){
@@ -27,21 +28,14 @@ public class AdminOrdersView extends VerticalLayout implements HasUrlParameter<I
         H1 orderTitle = new H1();
         orderTitle.addClassName("center");
         orderTitle.setWidthFull();
-        if(!hasParameter){
-            orderTitle.setText("Orders");
-            configureOrdersGrid();
+        orderTitle.setText("Orders");
+        configureOrdersGrid();
 
-            add(orderTitle, orderGrid);
-        }
-        else{
-            orderTitle.setText("Order " +orderId);
-            configureOrderIdGrid();
-        }
+        add(orderTitle,orderGrid);
+
     }
 
-    private void configureOrderIdGrid() {
-        
-    }
+
 
     private void configureOrdersGrid() {
         orderGrid.addColumn(order -> order.getDate()).setHeader("Date");
@@ -54,9 +48,5 @@ public class AdminOrdersView extends VerticalLayout implements HasUrlParameter<I
         orderGrid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
-    @Override
-    public void setParameter(BeforeEvent beforeEvent,@OptionalParameter Integer integer) {
-        hasParameter = true;
-        orderId = integer;
-    }
+
 }
