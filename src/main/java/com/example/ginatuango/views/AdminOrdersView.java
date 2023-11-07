@@ -16,6 +16,7 @@ public class AdminOrdersView extends VerticalLayout implements HasUrlParameter<I
 
     private final OrderService orderService;
     Grid<Order> orderGrid = new Grid<>(Order.class, false);
+    private boolean hasParameter = false;
 
     @Autowired
     public AdminOrdersView(OrderService orderService){
@@ -42,6 +43,7 @@ public class AdminOrdersView extends VerticalLayout implements HasUrlParameter<I
 
     @Override
     public void setParameter(BeforeEvent beforeEvent,@OptionalParameter Integer integer) {
+        hasParameter = true;
 
     }
 }

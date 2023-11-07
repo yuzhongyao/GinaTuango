@@ -32,6 +32,6 @@ public interface ItemSaleRepository extends JpaRepository<ItemSale, Integer> {
             "WHERE\n" +
             "    o.order_id = :orderId\n" +
             "GROUP BY\n" +
-            "    u.user_name, i.item_name, ist.type_name, ii.sale_date, ii.item_cost, ii.isOnSale;")
+            "    u.user_name, i.item_name, ist.type_name, ii.sale_date, ii.item_cost, ii.isOnSale;",nativeQuery = true)
     public List<Object> getItemSalesByOrder(@Param("orderId")int orderId);
 }
