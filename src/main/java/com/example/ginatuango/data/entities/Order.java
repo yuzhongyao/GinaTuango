@@ -10,29 +10,30 @@ import java.time.LocalDate;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int order_id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column
-    private LocalDate date;
+    private LocalDate sale_date;
 
     public Order() {
     }
 
     public Order(int id, User user, LocalDate date) {
-        this.id = id;
+        this.order_id = id;
         this.user = user;
-        this.date = date;
+        this.sale_date = date;
     }
 
     public int getId() {
-        return id;
+        return order_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.order_id = id;
     }
 
     public User getUser() {
@@ -44,10 +45,10 @@ public class Order {
     }
 
     public LocalDate getDate() {
-        return date;
+        return sale_date;
     }
 
     public void setDate(LocalDate date) {
-        this.date = date;
+        this.sale_date = date;
     }
 }
