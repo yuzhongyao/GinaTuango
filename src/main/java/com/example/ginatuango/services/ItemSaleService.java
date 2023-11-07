@@ -24,5 +24,4 @@ public class ItemSaleService {
     }
 
 
-    public List<Object> getItemSalesByOrder(int orderId){return itemSaleRepository.getItemSalesByOrder(orderId);}
 }

@@ -11,26 +11,39 @@ import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Route(value = "/orders",layout = AdminLayout.class)
 public class AdminOrdersView extends VerticalLayout implements HasUrlParameter<Integer> {
 
     private final OrderService orderService;
     Grid<Order> orderGrid = new Grid<>(Order.class, false);
     private boolean hasParameter = false;
+    private int orderId = -1;
 
     @Autowired
     public AdminOrdersView(OrderService orderService){
         this.orderService = orderService;
         H1 orderTitle = new H1();
-        orderTitle.setText("Orders");
         orderTitle.addClassName("center");
         orderTitle.setWidthFull();
-        configureUserGrid();
+        if(!hasParameter){
+            orderTitle.setText("Orders");
+            configureOrdersGrid();
 
-        add(orderTitle, orderGrid);
+            add(orderTitle, orderGrid);
+        }
+        else{
+            orderTitle.setText("Order " +orderId);
+            configureOrderIdGrid();
+        }
     }
 
-    private void configureUserGrid() {
+    private void configureOrderIdGrid() {
+        
+    }
+
+    private void configureOrdersGrid() {
         orderGrid.addColumn(order -> order.getDate()).setHeader("Date");
         orderGrid.addColumn(order -> order.getId()).setHeader("ID");
         orderGrid.addColumn(order -> order.getUser().getId()).setHeader("User ID");
@@ -44,6 +57,6 @@ public class AdminOrdersView extends VerticalLayout implements HasUrlParameter<I
     @Override
     public void setParameter(BeforeEvent beforeEvent,@OptionalParameter Integer integer) {
         hasParameter = true;
-
+        orderId = integer;
     }
 }

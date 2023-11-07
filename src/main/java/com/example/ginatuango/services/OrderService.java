@@ -26,5 +26,6 @@ public class OrderService {
         return orderRepository.findById(id);
     }
 
+    public List<Object[]> getItemSalesByOrder(int orderId){return orderRepository.getItemSalesByOrder(orderId);}
 
 }
