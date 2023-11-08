@@ -4,6 +4,7 @@ import com.example.ginatuango.data.entities.Order;
 import com.example.ginatuango.services.OrderService;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
@@ -43,6 +44,11 @@ public class AdminOrdersView extends VerticalLayout {
         orderGrid.addColumn(order -> order.getUser().getId()).setHeader("User ID");
         orderGrid.addColumn(order -> order.getUser().getName()).setHeader("User Name");
 
+        orderGrid.addItemClickListener(itemClickEvent -> {
+            orderGrid.getUI().ifPresent(ui -> ui.navigate(
+                    AdminSpecificOrderView.class, (Integer) itemClickEvent.getItem().getId()));
+
+        });
 
         orderGrid.setItems(orderService.getOrders());
         orderGrid.getColumns().forEach(col -> col.setAutoWidth(true));
