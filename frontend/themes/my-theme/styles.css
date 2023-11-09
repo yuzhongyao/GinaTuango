@@ -18,3 +18,8 @@ vaadin-app-layout::part(drawer){
     text-align:center;
 
 }
+
+
+vaadin-grid-cell-content:hover{
+    cursor: pointer;
+}
