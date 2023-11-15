@@ -2,6 +2,8 @@ package com.example.ginatuango.views;
 
 import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.UserService;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -25,7 +27,12 @@ public class AdminCustomersView extends VerticalLayout {
         userTitle.setWidthFull();
         configureUserGrid();
 
-        add(userTitle, usersGrid);
+        Button addUser = new Button("ADD CUSTOMER");
+        addUser.addClickListener(buttonClickEvent -> {
+            UI.getCurrent().navigate("/newcustomer");
+        });
+
+        add(userTitle, addUser, usersGrid);
     }
 
     //configures user columns accordingly
