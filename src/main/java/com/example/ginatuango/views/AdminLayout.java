@@ -29,12 +29,13 @@ public class AdminLayout extends AppLayout {
         DrawerToggle toggle = new DrawerToggle();
         toggle.getStyle().set("margin-left", "auto");
 
-        H1 title = new H1();
+        H1 title = new H1("");
         title.setText("GINA TUANGO");
         title.addClassName("center");
+        RouterLink home = new RouterLink("",AdminDashboardView.class);
+        home.add(title);
 
-
-        header.add(title,toggle);
+        header.add(home,toggle);
 
         //add components
         addToNavbar(header);

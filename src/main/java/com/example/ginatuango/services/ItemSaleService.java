@@ -3,6 +3,7 @@ package com.example.ginatuango.services;
 import com.example.ginatuango.data.entities.ItemSale;
 import com.example.ginatuango.repositories.ItemSaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,5 +22,6 @@ public class ItemSaleService {
     public List<ItemSale> getItemSales(){
         return itemSaleRepository.findAll();
     }
+
 
 }
