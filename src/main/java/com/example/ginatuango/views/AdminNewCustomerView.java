@@ -45,22 +45,36 @@ public class AdminNewCustomerView extends VerticalLayout {
         name.setRequired(true);
 
         PasswordField passwordField = new PasswordField("Password:");
+        passwordField.setRequired(true);
 
         EmailField email = new EmailField("Email:");
+        email.setRequired(true);
 
         TextField number = new TextField("Phone Number:");
+        number.setRequired(true);
 
         TextField street = new TextField("Street # and Name");
+        street.setRequired(true);
 
         TextField postal = new TextField("Postal Code:");
+        postal.setRequiredIndicatorVisible(true);
 
         TextField city = new TextField("City");
+        city.setRequiredIndicatorVisible(true);
 
         Button submit = new Button("SUBMIT");
         submit.addClickListener(buttonClickEvent -> {
             createNewCustomer(
                     name,passwordField,email,number,street,postal,city
             );
+            name.clear();
+            passwordField.clear();
+            email.clear();
+            number.clear();
+            street.clear();
+            postal.clear();
+            city.clear();
+
         });
 
         form.add(name, passwordField, email, number, street, postal, city, submit);
@@ -68,6 +82,7 @@ public class AdminNewCustomerView extends VerticalLayout {
         add(title,formContainer);
 
     }
+
 
     private void createNewCustomer(TextField name, PasswordField passwordField, EmailField email, TextField number, TextField street, TextField postal, TextField city) {
         try {
