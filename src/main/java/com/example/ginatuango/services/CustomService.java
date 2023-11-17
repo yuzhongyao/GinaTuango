@@ -25,4 +25,8 @@ public class CustomService {
         return customRepository.getTodaysOrders(LocalDate.now(ZoneId.of("America/New_York")));
     }
 
+    public List<Object[]> getOrders(LocalDate date) {
+        return customRepository.getTodaysOrders(date);
+
+    }
 }

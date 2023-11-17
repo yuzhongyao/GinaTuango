@@ -1,5 +1,6 @@
 package com.example.ginatuango.views.components;
 
+import com.example.ginatuango.utils.UTILS;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -64,12 +65,12 @@ public class ApplyForm extends VerticalLayout {
             // Validate input
             //Notification.show() does not apply theme variants??????
             if(name.isEmpty() || number.isEmpty() || message.isEmpty()){
-                showNotification("Please fill in all fields",false);
+                UTILS.showNotification(notification,"Please fill in all fields",false);
                 return;
             }
 
             if(!isValidNumber(number)){
-                showNotification("Please enter a valid phone number",false);
+                UTILS.showNotification(notification,"Please enter a valid phone number",false);
                 numberField.clear();
                 return;
             }
@@ -78,14 +79,16 @@ public class ApplyForm extends VerticalLayout {
             try{
                 sendEmail(name, number, message);
                 notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-                showNotification("Application sent successfully!",true);
+                UTILS.showNotification(notification, "Application sent successfully!",true);
+
                 nameField.clear();
                 numberField.clear();
                 messageArea.clear();
 //                UI.getCurrent().navigate("/");
             }catch (Exception e){
                 logger.error("Error sending email: {}", e.getMessage(), e);
-                showNotification("An error occurred while applying. Please try again later.",false);
+                UTILS.showNotification(notification, "An error occurred while applying. Please try again later.",false);
+
 
             }
 

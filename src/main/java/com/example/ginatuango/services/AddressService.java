@@ -21,4 +21,7 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
+    public void insertNewAddress(Address address){
+        addressRepository.save(address);
+    }
 }
