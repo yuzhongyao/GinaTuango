@@ -21,7 +21,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "/items", layout = AdminLayout.class)
+@Route(value = "/admin/items", layout = AdminLayout.class)
 public class AdminItemsView extends VerticalLayout {
 
     private final ItemService itemService;

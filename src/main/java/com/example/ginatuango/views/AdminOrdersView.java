@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@Route(value = "/orders",layout = AdminLayout.class)
+@Route(value = "/admin/orders",layout = AdminLayout.class)
 public class AdminOrdersView extends VerticalLayout {
 
     private final OrderService orderService;

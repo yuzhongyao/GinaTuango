@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "/customers",layout = AdminLayout.class)
+@Route(value = "/admin/customers",layout = AdminLayout.class)
 public class AdminCustomersView extends VerticalLayout {
 
     private final UserService userService;
