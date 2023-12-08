@@ -21,4 +21,10 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
+    public Item getItem(int id){return itemRepository.getReferenceById(id);}
+
+    public void updateItem(Item item){
+        itemRepository.save(item);
+    }
+
 }

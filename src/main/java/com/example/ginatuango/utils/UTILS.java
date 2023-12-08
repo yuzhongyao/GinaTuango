@@ -15,7 +15,7 @@ public class UTILS {
     private UTILS(){
     }
 
-    public static void showNotification(Notification notification,String error, boolean type){
+    public static void showNotification(Notification notification,String message, boolean type){
         notification.removeAll();
         notification.removeThemeVariants(NotificationVariant.LUMO_ERROR);
         notification.removeThemeVariants(NotificationVariant.LUMO_SUCCESS);
@@ -27,7 +27,7 @@ public class UTILS {
         else{
             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         }
-        Div text = new Div(new Text(error));
+        Div text = new Div(new Text(message));
 
         Button closeButton = new Button(new Icon("lumo", "cross"));
         closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
@@ -40,7 +40,7 @@ public class UTILS {
         layout.setAlignItems(FlexComponent.Alignment.CENTER);
 
         notification.add(layout);
-        notification.setDuration(5000);
+        notification.setDuration(2000);
         notification.setPosition(Notification.Position.MIDDLE);
         notification.open();
     }
