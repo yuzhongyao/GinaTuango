@@ -1,6 +1,7 @@
 package com.example.ginatuango.services;
 
 import com.example.ginatuango.data.entities.Order;
+import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,4 +29,7 @@ public class OrderService {
 
     public List<Object[]> getItemSalesByOrder(int orderId){return orderRepository.getItemSalesByOrder(orderId);}
 
+    public List<Order> getOrdersByUser(User user){return orderRepository.findByUser(user);}
+
+    public void deleteOrders(List<Order> orders){orderRepository.deleteAll(orders);}
 }

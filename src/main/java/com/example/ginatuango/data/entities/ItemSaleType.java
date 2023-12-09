@@ -8,32 +8,32 @@ public class ItemSaleType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int type_id;
 
     @Column
-    private String type;
+    private String type_name;
 
     public ItemSaleType() {
     }
 
     public ItemSaleType(int id, String type) {
-        this.id = id;
-        this.type = type;
+        this.type_id = id;
+        this.type_name = type;
     }
 
     public int getId() {
-        return id;
+        return type_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.type_id = id;
     }
 
     public String getType() {
-        return type;
+        return type_name;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type_name = type;
     }
 }

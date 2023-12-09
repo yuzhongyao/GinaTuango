@@ -1,6 +1,7 @@
 package com.example.ginatuango.services;
 
 import com.example.ginatuango.data.entities.ItemSale;
+import com.example.ginatuango.data.entities.Order;
 import com.example.ginatuango.repositories.ItemSaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
@@ -23,5 +24,6 @@ public class ItemSaleService {
         return itemSaleRepository.findAll();
     }
 
-
+    public List<ItemSale> getItemSalesByOrder(Order order){return itemSaleRepository.findByOrder(order);}
+    public void deleteItemSales(List<ItemSale> itemSales){itemSaleRepository.deleteAll(itemSales);}
 }
