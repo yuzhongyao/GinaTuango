@@ -1,6 +1,7 @@
 package com.example.ginatuango.repositories;
 
 import com.example.ginatuango.data.entities.Order;
+import com.example.ginatuango.data.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -36,4 +37,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "ORDER BY\n" +
             "    ii.sale_date DESC;",nativeQuery = true)
     public List<Object[]> getItemSalesByOrder(@Param("orderId")int orderId);
+
+    List<Order> findByUser(User user);
+
 }
