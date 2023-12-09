@@ -8,14 +8,14 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
-    private int id;
+    private int image_id;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
 
     @Column(name = "url")
-    private String imageUrl;
+    private String url;
 
     // Constructors, getters, and setters
 
@@ -24,17 +24,17 @@ public class Image {
     }
 
     public Image(int id, Item item, String imageUrl) {
-        this.id = id;
+        this.image_id = id;
         this.item = item;
-        this.imageUrl = imageUrl;
+        this.url = imageUrl;
     }
 
     public int getId() {
-        return id;
+        return image_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.image_id = id;
     }
 
     public Item getItem() {
@@ -46,10 +46,10 @@ public class Image {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return url;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.url = imageUrl;
     }
 }

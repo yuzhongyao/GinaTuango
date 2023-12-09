@@ -4,19 +4,20 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "items")
+
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int item_id;
     @Column
-    private String name;
+    private String item_name;
     @Column
     private String description;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
-    @OneToMany(mappedBy = "item")
-    private Image[] images;
+//    @OneToMany(mappedBy = "item")
+//    private Image[] images;
 
     @Column
     private double stock;
@@ -27,8 +28,8 @@ public class Item {
     }
 
     public Item(int id, String name, String description, Category category, double stock, double price) {
-        this.id = id;
-        this.name = name;
+        this.item_id = id;
+        this.item_name = name;
         this.description = description;
         this.category = category;
         this.stock = stock;
@@ -36,19 +37,19 @@ public class Item {
     }
 
     public int getId() {
-        return id;
+        return item_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.item_id = id;
     }
 
     public String getName() {
-        return name;
+        return item_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.item_name = name;
     }
 
     public String getDescription() {
@@ -82,12 +83,12 @@ public class Item {
     public void setPrice(double price) {
         this.price = price;
     }
-    public Image[] getImages() {
-        return images;
-    }
-
-    public void setImages(Image[] images) {
-        this.images = images;
-    }
+//    public Image[] getImages() {
+//        return images;
+//    }
+//
+//    public void setImages(Image[] images) {
+//        this.images = images;
+//    }
 
 }

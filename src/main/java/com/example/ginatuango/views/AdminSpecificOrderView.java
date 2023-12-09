@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 
-@Route(value = "order",layout = AdminLayout.class)
+@Route(value = "admin/order",layout = AdminLayout.class)
 public class AdminSpecificOrderView extends VerticalLayout implements HasUrlParameter<Integer> {
     private final OrderService orderService;
     Grid<Object[]> orderGrid = new Grid<>();

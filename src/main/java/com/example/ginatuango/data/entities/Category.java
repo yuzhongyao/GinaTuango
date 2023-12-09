@@ -8,31 +8,31 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private int id;
+    private int category_id;
     @Column
-    private String name;
+    private String category_name;
 
     public Category() {
     }
 
     public Category(int id, String name) {
-        this.id = id;
-        this.name = name;
+        this.category_id = id;
+        this.category_name = name;
     }
 
     public int getId() {
-        return id;
+        return category_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.category_id = id;
     }
 
     public String getName() {
-        return name;
+        return category_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.category_name = name;
     }
 }
