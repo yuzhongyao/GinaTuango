@@ -14,12 +14,15 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.provider.DataProvider;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +36,8 @@ public class AdminItemsView extends VerticalLayout {
     private final ImageService imageService;
     private final ItemSaleService itemSaleService;
 
-    Grid<Item> itemGrid = new Grid<>(Item.class, false);
+    private Grid<Item> itemGrid = new Grid<>(Item.class, false);
+    private List<Item> items;
 
     @Autowired
     public AdminItemsView(ItemService itemService, ImageService imageService,ItemSaleService itemSaleService){
@@ -57,14 +61,23 @@ public class AdminItemsView extends VerticalLayout {
 
     private void addItem(){
         Dialog dialog = new Dialog();
+        Button close = new Button("Cancel", (e) -> dialog.close());
+        Button add = new Button("ADD");
+        add.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
+        H3 headerTitle = new H3("ADD NEW ITEM");
 
+        dialog.getHeader().add(headerTitle);
+        dialog.getFooter().add(close);
+        dialog.getFooter().add(add);
         dialog.open();
     }
 
     private void configureItemsGrid() {
 //        itemGrid.addComponentColumn(item -> new RouterLink("Edit", AdminSpecificItemView.class, item.getId()));
-        itemGrid.setItems(itemService.getItems());
+
+        items = itemService.getItems();
+        itemGrid.setItems(items);
         itemGrid.addColumn(item -> item.getId()).setHeader("ID");
         itemGrid.addColumn(item -> item.getName()).setHeader("Item").setSortable(true);;
         itemGrid.addColumn(item -> item.getCategory().getName()).setHeader("Category").setSortable(true);;
@@ -102,8 +115,10 @@ public class AdminItemsView extends VerticalLayout {
                 }
                 itemService.deleteItem(item);
                 UTILS.showNotification(new Notification(),"SUCCESSFULLY DELETED", true);
-                editor.close();
+                items.remove(item);
                 itemGrid.getDataProvider().refreshAll();
+                editor.close();
+
             });
 
             Button close = new Button("Cancel", (e) -> editor.close());
