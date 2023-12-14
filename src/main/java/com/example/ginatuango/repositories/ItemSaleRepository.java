@@ -14,4 +14,7 @@ public interface ItemSaleRepository extends JpaRepository<ItemSale, Integer> {
 
     public List<ItemSale> findByOrder(Order order);
 
+    @Query(value = "SELECT * FROM itemSales WHERE item_id = :itemParam ;", nativeQuery = true)
+    List<ItemSale> getItemSalesByItemId(@Param("itemParam")int id);
+
 }

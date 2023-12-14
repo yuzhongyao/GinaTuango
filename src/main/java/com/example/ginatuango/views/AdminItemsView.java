@@ -2,6 +2,9 @@ package com.example.ginatuango.views;
 
 
 import com.example.ginatuango.data.entities.Item;
+import com.example.ginatuango.data.entities.ItemSale;
+import com.example.ginatuango.services.ImageService;
+import com.example.ginatuango.services.ItemSaleService;
 import com.example.ginatuango.services.ItemService;
 import com.example.ginatuango.utils.UTILS;
 import com.vaadin.flow.component.Text;
@@ -21,16 +24,22 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Route(value = "/admin/items", layout = AdminLayout.class)
 public class AdminItemsView extends VerticalLayout {
 
     private final ItemService itemService;
+    private final ImageService imageService;
+    private final ItemSaleService itemSaleService;
 
     Grid<Item> itemGrid = new Grid<>(Item.class, false);
 
     @Autowired
-    public AdminItemsView(ItemService itemService){
+    public AdminItemsView(ItemService itemService, ImageService imageService,ItemSaleService itemSaleService){
         this.itemService = itemService;
+        this.imageService = imageService;
+        this.itemSaleService = itemSaleService;
         H1 itemTitle = new H1();
         itemTitle.addClassName("center");
         itemTitle.setWidthFull();
@@ -38,8 +47,19 @@ public class AdminItemsView extends VerticalLayout {
         configureItemsGrid();
         Paragraph paragraph = new Paragraph("Click a row to edit");
 
-        add(itemTitle,paragraph, itemGrid);
+        Button addItemButton = new Button("ADD NEW ITEM");
+        addItemButton.addClickListener(buttonClickEvent -> {
+            addItem();
+        });
+        add(itemTitle,paragraph, addItemButton,itemGrid);
 
+    }
+
+    private void addItem(){
+        Dialog dialog = new Dialog();
+
+
+        dialog.open();
     }
 
     private void configureItemsGrid() {
@@ -72,8 +92,22 @@ public class AdminItemsView extends VerticalLayout {
 
             editorLayout.add(name,description,category,stock,price);
 
+            Button delete = new Button("DELETE");
+            delete.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+            delete.addClickListener(buttonClickEvent -> {
+                imageService.deleteImagesBtItemId(item.getId());
+                List<ItemSale> itemsales =itemSaleService.getItemSalesByItemId(item.getId());
+                if (!itemsales.isEmpty()){
+                    itemSaleService.deleteItemSales(itemsales);
+                }
+                itemService.deleteItem(item);
+                UTILS.showNotification(new Notification(),"SUCCESSFULLY DELETED", true);
+                editor.close();
+                itemGrid.getDataProvider().refreshAll();
+            });
+
             Button close = new Button("Cancel", (e) -> editor.close());
-            close.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+            close.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
             Button save = new Button("Save");
             save.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_SUCCESS);
             save.addClickListener(buttonClickEvent -> {
@@ -90,6 +124,7 @@ public class AdminItemsView extends VerticalLayout {
                 UTILS.showNotification(new Notification(),"SUCCESSFULLY SAVED", true);
             });
 
+            editor.getFooter().add(delete);
             editor.getFooter().add(close);
             editor.getFooter().add(save);
             editor.add(editorLayout);

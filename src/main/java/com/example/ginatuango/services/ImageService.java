@@ -21,4 +21,15 @@ public class ImageService {
         return imageRepository.findAll();
     }
 
+    public void deleteImagesBtItemId(int id){
+        if(!getImagesByItemId(id).isEmpty()){
+            imageRepository.deleteImagesByItemId(id);
+        }
+    }
+
+    public List<Image> getImagesByItemId(int id){
+        return imageRepository.getImagesByItemId(id);
+    }
+
+
 }
