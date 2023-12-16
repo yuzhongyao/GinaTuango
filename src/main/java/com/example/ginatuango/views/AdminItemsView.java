@@ -70,18 +70,27 @@ public class AdminItemsView extends VerticalLayout {
         Button close = new Button("Cancel", (e) -> dialog.close());
         Button add = new Button("ADD");
         add.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        add.addClickListener(buttonClickEvent -> {
+
+        });
 
         H3 headerTitle = new H3("ADD NEW ITEM");
 
         VerticalLayout dialogLayout = new VerticalLayout();
 
         TextField name = new TextField("Name");
+        name.setRequired(true);
         TextArea description = new TextArea("Description");
+        description.setRequired(true);
         ComboBox<Category> category = new ComboBox<>("Category");
+        category.setRequired(true);
         category.setItems(categoryService.getCategories());
         category.setItemLabelGenerator(Category::getName);
         TextField stock = new TextField("Stock");
+        stock.setRequired(true);
         TextField price = new TextField("Price");
+        price.setRequired(true);
+
 
         dialogLayout.add(name,description,category,stock,price);
         dialog.getHeader().add(headerTitle);
