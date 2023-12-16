@@ -28,6 +28,7 @@ public class AdminCustomersView extends VerticalLayout {
     private final OrderService orderService;
     private final ItemSaleService itemSaleService;
     Grid<User> usersGrid = new Grid<>(User.class, false);
+    private List<User> users;
 
 
     @Autowired
@@ -56,6 +57,8 @@ public class AdminCustomersView extends VerticalLayout {
     //configures user columns accordingly
     private void configureUserGrid() {
 //        usersGrid.setSizeFull();
+        users = userService.getUsers();
+        usersGrid.setItems(users);
         usersGrid.addColumn(user -> user.getName()).setHeader("Name");
         usersGrid.addColumn(user -> user.getPhone()).setHeader("Phone");
 
@@ -83,7 +86,7 @@ public class AdminCustomersView extends VerticalLayout {
                 userService.deleteUser(user);
                 UTILS.showNotification(new Notification(),"DELETED USER", false);
 
-                //WTF refreshing is not removing the deleted row?????????
+                users.remove(user);
                 usersGrid.getDataProvider().refreshItem(user);
                 usersGrid.getDataProvider().refreshAll();
                

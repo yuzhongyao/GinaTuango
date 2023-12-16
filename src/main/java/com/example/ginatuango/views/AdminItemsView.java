@@ -1,8 +1,11 @@
 package com.example.ginatuango.views;
 
 
+import com.example.ginatuango.data.entities.Category;
 import com.example.ginatuango.data.entities.Item;
 import com.example.ginatuango.data.entities.ItemSale;
+import com.example.ginatuango.data.entities.ItemSaleType;
+import com.example.ginatuango.services.CategoryService;
 import com.example.ginatuango.services.ImageService;
 import com.example.ginatuango.services.ItemSaleService;
 import com.example.ginatuango.services.ItemService;
@@ -10,6 +13,7 @@ import com.example.ginatuango.utils.UTILS;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
@@ -35,15 +39,17 @@ public class AdminItemsView extends VerticalLayout {
     private final ItemService itemService;
     private final ImageService imageService;
     private final ItemSaleService itemSaleService;
+    private final CategoryService categoryService;
 
     private Grid<Item> itemGrid = new Grid<>(Item.class, false);
     private List<Item> items;
 
     @Autowired
-    public AdminItemsView(ItemService itemService, ImageService imageService,ItemSaleService itemSaleService){
+    public AdminItemsView(ItemService itemService, ImageService imageService,ItemSaleService itemSaleService, CategoryService categoryService){
         this.itemService = itemService;
         this.imageService = imageService;
         this.itemSaleService = itemSaleService;
+        this.categoryService = categoryService;
         H1 itemTitle = new H1();
         itemTitle.addClassName("center");
         itemTitle.setWidthFull();
@@ -67,9 +73,21 @@ public class AdminItemsView extends VerticalLayout {
 
         H3 headerTitle = new H3("ADD NEW ITEM");
 
+        VerticalLayout dialogLayout = new VerticalLayout();
+
+        TextField name = new TextField("Name");
+        TextArea description = new TextArea("Description");
+        ComboBox<Category> category = new ComboBox<>("Category");
+        category.setItems(categoryService.getCategories());
+        category.setItemLabelGenerator(Category::getName);
+        TextField stock = new TextField("Stock");
+        TextField price = new TextField("Price");
+
+        dialogLayout.add(name,description,category,stock,price);
         dialog.getHeader().add(headerTitle);
         dialog.getFooter().add(close);
         dialog.getFooter().add(add);
+        dialog.add(dialogLayout);
         dialog.open();
     }
 
