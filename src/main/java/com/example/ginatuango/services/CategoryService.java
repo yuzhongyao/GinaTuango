@@ -17,6 +17,9 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    public void insertNewCategory(Category category){
+        categoryRepository.save(category);
+    }
     public List<Category> getCategories(){
         return categoryRepository.findAll();
     }
