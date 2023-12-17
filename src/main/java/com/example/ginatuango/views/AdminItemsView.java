@@ -186,8 +186,8 @@ public class AdminItemsView extends VerticalLayout {
             name.setValue(item.getName());
             TextArea description = new TextArea("Description");
             description.setValue(item.getDescription());
-            TextField category = new TextField("Category");
-            category.setValue(item.getCategory().getName());
+            ComboBox<Category> category = new ComboBox<>("Category");
+            category.setValue(item.getCategory());
             TextField stock = new TextField("Stock");
             stock.setValue(String.valueOf(item.getStock()));
             TextField price = new TextField("Price");
@@ -218,7 +218,7 @@ public class AdminItemsView extends VerticalLayout {
             save.addClickListener(buttonClickEvent -> {
                 item.setName(name.getValue());
                 item.setDescription(description.getValue());
-                item.getCategory().setName(category.getValue());
+                item.setCategory(category.getValue());
                 item.setPrice(Double.parseDouble(price.getValue()));
                 item.setStock(Double.parseDouble(stock.getValue()));
 
