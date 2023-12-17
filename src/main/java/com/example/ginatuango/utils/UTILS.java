@@ -15,13 +15,13 @@ public class UTILS {
     private UTILS(){
     }
 
-    public static void showNotification(Notification notification,String message, boolean type){
+    public static void showNotification(Notification notification,String message, boolean isSuccess){
         notification.removeAll();
         notification.removeThemeVariants(NotificationVariant.LUMO_ERROR);
         notification.removeThemeVariants(NotificationVariant.LUMO_SUCCESS);
 
         //errors for 0
-        if(type == false){
+        if(isSuccess == false){
             notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
         }
         else{

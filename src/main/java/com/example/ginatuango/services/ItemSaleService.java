@@ -26,4 +26,13 @@ public class ItemSaleService {
 
     public List<ItemSale> getItemSalesByOrder(Order order){return itemSaleRepository.findByOrder(order);}
     public void deleteItemSales(List<ItemSale> itemSales){itemSaleRepository.deleteAll(itemSales);}
+
+    public List<ItemSale> getItemSalesByItemId(int id){
+        return itemSaleRepository.getItemSalesByItemId(id);
+    }
+
+
+
+
+
 }
