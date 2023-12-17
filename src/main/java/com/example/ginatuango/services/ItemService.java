@@ -27,7 +27,9 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-
+    public void insertNewItem(Item item){
+        itemRepository.save(item);
+    }
 
     public void deleteItem(Item item){
         itemRepository.delete(item);

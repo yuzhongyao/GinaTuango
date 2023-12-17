@@ -70,9 +70,6 @@ public class AdminItemsView extends VerticalLayout {
         Button close = new Button("Cancel", (e) -> dialog.close());
         Button add = new Button("ADD");
         add.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        add.addClickListener(buttonClickEvent -> {
-
-        });
 
         H3 headerTitle = new H3("ADD NEW ITEM");
 
@@ -91,6 +88,11 @@ public class AdminItemsView extends VerticalLayout {
         TextField price = new TextField("Price");
         price.setRequired(true);
 
+        add.addClickListener(buttonClickEvent -> {
+            createNewItem(name, description, category,stock,price);
+            dialog.close();
+        });
+
 
         dialogLayout.add(name,description,category,stock,price);
         dialog.getHeader().add(headerTitle);
@@ -99,6 +101,28 @@ public class AdminItemsView extends VerticalLayout {
         dialog.add(dialogLayout);
         dialog.open();
     }
+
+    private void createNewItem(TextField name, TextArea description, ComboBox<Category> category, TextField stock, TextField price) {
+        try {
+            Item item = new Item();
+
+            item.setName(name.getValue());
+            item.setCategory(category.getValue());
+            item.setDescription(description.getValue());
+            item.setPrice(Double.parseDouble(price.getValue()));
+            item.setStock(Double.parseDouble(stock.getValue()));
+
+            itemService.insertNewItem(item);
+            UTILS.showNotification(new Notification(),"SUCCESSFULLY CREATED NEW ITEM", true);
+            items.add(item);
+            itemGrid.getDataProvider().refreshAll();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            UTILS.showNotification(new Notification(),"ERROR CREATED NEW ITEM", false);
+        }
+    }
+
 
     private void configureItemsGrid() {
 //        itemGrid.addComponentColumn(item -> new RouterLink("Edit", AdminSpecificItemView.class, item.getId()));
