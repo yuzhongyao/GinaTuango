@@ -61,7 +61,46 @@ public class AdminItemsView extends VerticalLayout {
         addItemButton.addClickListener(buttonClickEvent -> {
             addItem();
         });
-        add(itemTitle,paragraph, addItemButton,itemGrid);
+        Button addCategoryButton = new Button("ADD NEW CATEGORY");
+        addCategoryButton.addClickListener(buttonClickEvent -> {
+            addCategoryDialog();
+        });
+        add(itemTitle,paragraph, addItemButton,addCategoryButton,itemGrid);
+
+    }
+
+    private void addCategoryDialog() {
+        Dialog dialog = new Dialog();
+        H3 title = new H3("ADD CATEGORY");
+
+        TextField name = new TextField("Name");
+
+        Button add = new Button("ADD");
+        add.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        add.addClickListener(buttonClickEvent -> {
+            addCategory(name);
+            dialog.close();
+        });
+        Button close = new Button("Cancel", (e) -> dialog.close());
+
+
+        dialog.add(name);
+        dialog.getFooter().add(close, add);
+        dialog.getHeader().add(title);
+        dialog.open();
+    }
+
+    private void addCategory(TextField name) {
+        try{
+            Category category = new Category();
+            category.setName(name.getValue());
+            categoryService.insertNewCategory(category);
+            UTILS.showNotification(new Notification(),"SUCCESFULLY CREATED NEW ITEM", true);
+        }catch (Exception e){
+            e.printStackTrace();
+            UTILS.showNotification(new Notification(),"ERROR CREATED NEW CATEGORY", false);
+        }
+
 
     }
 
