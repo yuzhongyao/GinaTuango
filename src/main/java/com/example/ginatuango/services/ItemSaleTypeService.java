@@ -19,4 +19,12 @@ public class ItemSaleTypeService {
     public List<ItemSaleType> getItemSaleTypes(){
         return itemSaleTypeRepository.findAll();
     }
+
+    public void insertNewItemSaleType(ItemSaleType itemSaleType){
+        itemSaleTypeRepository.save(itemSaleType);
+    }
+
+
+
 }
+

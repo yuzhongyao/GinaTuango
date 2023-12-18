@@ -5,10 +5,7 @@ import com.example.ginatuango.data.entities.Category;
 import com.example.ginatuango.data.entities.Item;
 import com.example.ginatuango.data.entities.ItemSale;
 import com.example.ginatuango.data.entities.ItemSaleType;
-import com.example.ginatuango.services.CategoryService;
-import com.example.ginatuango.services.ImageService;
-import com.example.ginatuango.services.ItemSaleService;
-import com.example.ginatuango.services.ItemService;
+import com.example.ginatuango.services.*;
 import com.example.ginatuango.utils.UTILS;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
@@ -40,16 +37,18 @@ public class AdminItemsView extends VerticalLayout {
     private final ImageService imageService;
     private final ItemSaleService itemSaleService;
     private final CategoryService categoryService;
+    private final ItemSaleTypeService itemSaleTypeService;
 
     private Grid<Item> itemGrid = new Grid<>(Item.class, false);
     private List<Item> items;
 
     @Autowired
-    public AdminItemsView(ItemService itemService, ImageService imageService,ItemSaleService itemSaleService, CategoryService categoryService){
+    public AdminItemsView(ItemService itemService, ImageService imageService,ItemSaleService itemSaleService, CategoryService categoryService, ItemSaleTypeService itemSaleTypeService){
         this.itemService = itemService;
         this.imageService = imageService;
         this.itemSaleService = itemSaleService;
         this.categoryService = categoryService;
+        this.itemSaleTypeService = itemSaleTypeService;
         H1 itemTitle = new H1();
         itemTitle.addClassName("center");
         itemTitle.setWidthFull();
@@ -65,8 +64,45 @@ public class AdminItemsView extends VerticalLayout {
         addCategoryButton.addClickListener(buttonClickEvent -> {
             addCategoryDialog();
         });
-        add(itemTitle,paragraph, addItemButton,addCategoryButton,itemGrid);
+        Button addItemSaleType = new Button("ADD SALE TYPE");
+        addItemSaleType.addClickListener(buttonClickEvent -> {
+                    addItemSaleTypeDialog();
+                });
+        add(itemTitle,paragraph, addItemButton,addCategoryButton,addItemSaleType, itemGrid);
 
+    }
+
+    private void addItemSaleTypeDialog() {
+        Dialog dialog = new Dialog();
+        H3 title = new H3("ADD ITEM SALE TYPE");
+
+        TextField name = new TextField("Name");
+
+        Button add = new Button("ADD");
+        add.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        add.addClickListener(buttonClickEvent -> {
+            addItemSaleType(name);
+            dialog.close();
+        });
+        Button close = new Button("Cancel", (e) -> dialog.close());
+
+
+        dialog.add(name);
+        dialog.getFooter().add(close, add);
+        dialog.getHeader().add(title);
+        dialog.open();
+    }
+
+    private void addItemSaleType(TextField name) {
+        try{
+            ItemSaleType itemSaleType = new ItemSaleType();
+            itemSaleType.setType(name.getValue());
+            itemSaleTypeService.insertNewItemSaleType(itemSaleType);
+            UTILS.showNotification(new Notification(),"SUCCESFULLY CREATED NEW ITEM SALE TYPE", true);
+        }catch (Exception e){
+            e.printStackTrace();
+            UTILS.showNotification(new Notification(),"ERROR CREATED NEW ITEM SALE TYPE", false);
+        }
     }
 
     private void addCategoryDialog() {
