@@ -23,4 +23,10 @@ public class CategoryService {
     public List<Category> getCategories(){
         return categoryRepository.findAll();
     }
+
+    public void deleteCategory(Category category){
+        categoryRepository.delete(category);
+    }
+
+
 }

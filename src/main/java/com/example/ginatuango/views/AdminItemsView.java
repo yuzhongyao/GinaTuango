@@ -19,6 +19,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -60,16 +61,55 @@ public class AdminItemsView extends VerticalLayout {
         addItemButton.addClickListener(buttonClickEvent -> {
             addItem();
         });
-        Button addCategoryButton = new Button("ADD NEW CATEGORY");
+
+        HorizontalLayout categories = new HorizontalLayout();
+        Button addCategoryButton = new Button("ADD CATEGORY");
         addCategoryButton.addClickListener(buttonClickEvent -> {
             addCategoryDialog();
         });
+        Button deleteCategoryButton = new Button("DELETE CATEGORY");
+        deleteCategoryButton.addClickListener(buttonClickEvent -> {
+            deleteCategoryDialog();
+        });
+        categories.add(addCategoryButton,deleteCategoryButton);
         Button addItemSaleType = new Button("ADD SALE TYPE");
         addItemSaleType.addClickListener(buttonClickEvent -> {
                     addItemSaleTypeDialog();
                 });
-        add(itemTitle,paragraph, addItemButton,addCategoryButton,addItemSaleType, itemGrid);
+        add(itemTitle,paragraph, addItemButton,categories,addItemSaleType, itemGrid);
 
+    }
+
+    private void deleteCategoryDialog() {
+        Dialog dialog = new Dialog();
+        H3 title = new H3("DELETE CATEGORY");
+
+        ComboBox<Category> categoryComboBox = new ComboBox<>();
+        categoryComboBox.setItems(categoryService.getCategories());
+        categoryComboBox.setItemLabelGenerator(Category::getName);
+
+        dialog.add(categoryComboBox);
+
+        Button delete = new Button("DELETE");
+        delete.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+        delete.addClickListener(buttonClickEvent -> {
+            if (categoryComboBox.isEmpty()){
+                UTILS.showNotification(new Notification(), "PLEASE SELECT A CATEGORY", false);
+            }
+            else{
+                categoryService.deleteCategory(categoryComboBox.getValue());
+                UTILS.showNotification(new Notification(), "SUCCESSFULLY DELETED CATEGORY", false);
+                dialog.close();
+            }
+        });
+        Button cancel = new Button("CANCEL");
+        cancel.addClickListener(buttonClickEvent -> {
+           dialog.close();
+        });
+
+        dialog.getFooter().add(cancel, delete);
+        dialog.getHeader().add(title);
+        dialog.open();
     }
 
     private void addItemSaleTypeDialog() {
