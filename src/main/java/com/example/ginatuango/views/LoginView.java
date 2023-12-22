@@ -10,7 +10,7 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
-@Route(value = "")
+@Route(value = "/login")
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     public LoginView(){
