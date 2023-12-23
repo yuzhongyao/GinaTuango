@@ -11,7 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
 @Route(value = "/login")
-public class LoginView extends VerticalLayout implements BeforeEnterObserver {
+public class LoginView extends VerticalLayout {
 
     public LoginView(){
         this.addClassName("login-form");
@@ -33,21 +33,5 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     }
 
-    @Override
-    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        Object userObject = VaadinSession.getCurrent().getAttribute("user");
-        if(userObject instanceof User){
-            User user = (User) userObject;
-            //admins redirected to admin dashboard
-            if(user.isAdmin()){
-                beforeEnterEvent.rerouteTo("/admin");
-            }
-            //users redirected to user dashboard
-            else{
-                //add later for non admin users
-            }
-        }
-
-
-    }
+  
 }
