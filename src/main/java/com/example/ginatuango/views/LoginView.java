@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
 @Route(value = "/login")
-public class LoginView extends VerticalLayout {
+public class LoginView extends VerticalLayout implements BeforeEnterObserver{
 
     LoginI18n i18n = LoginI18n.createDefault();
     private final com.vaadin.flow.component.login.LoginForm login = new com.vaadin.flow.component.login.LoginForm();
@@ -33,7 +33,7 @@ public class LoginView extends VerticalLayout {
 
         LoginI18n.Form i18nForm = i18n.getForm();
         i18nForm.setForgotPassword("Apply");
-        
+
 
         login.setI18n(i18n);
         login.setAction("login");
@@ -50,5 +50,12 @@ public class LoginView extends VerticalLayout {
 
     }
 
-  
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+        if(beforeEnterEvent.getLocation().getQueryParameters()
+                .getParameters().containsKey("error")){
+            login.setError(true);
+        }
+    }
 }
