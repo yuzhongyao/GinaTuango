@@ -3,6 +3,7 @@ package com.example.ginatuango.security;
 import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,10 +30,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 //    BCryptPasswordEncoder
 //    Argon2PasswordEncoder
 //    DelegatingPasswordEncoder for production
-    @Autowired
-    private NoOpPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private BCryptPasswordEncoder passwordEncoder;
 //    @Autowired
 //    private DelegatingPasswordEncoder passwordEncoder;
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+            return NoOpPasswordEncoder.getInstance();
+    }
 
 
 
@@ -44,7 +52,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (user.isEmpty()){
             throw new UsernameNotFoundException("Username not found");
         }
-        if(passwordEncoder.matches(password, user.get().getPassword())){
+        if(passwordEncoder().matches(password, user.get().getPassword())){
             return new UsernamePasswordAuthenticationToken(username, password);
         }
         else{
