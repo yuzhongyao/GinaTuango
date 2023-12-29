@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 
-    @Query(value = "SELECT user_name, password, is_admin FROM " +
-            "users AS u WHERE u.user_name =:userParam ")
+    @Query(value = "SELECT u FROM " +
+            "User u WHERE user_name =:userParam ")
     Optional<User> getUserByUsername(@Param("userParam") String username);
 }
