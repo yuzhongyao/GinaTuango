@@ -12,7 +12,9 @@ import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
@@ -21,6 +23,8 @@ import java.util.List;
 import java.util.Locale;
 
 @Route(value = "/admin",layout = AdminLayout.class)
+@PageTitle("Home")
+@RolesAllowed("ADMIN")
 public class AdminDashboardView extends VerticalLayout implements BeforeEnterObserver {
 
 

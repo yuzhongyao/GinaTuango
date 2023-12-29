@@ -14,12 +14,16 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.RolesAllowed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "/newcustomer", layout = AdminLayout.class)
+@PageTitle("Create New Customer")
+@RolesAllowed("ADMIN")
 public class AdminNewCustomerView extends VerticalLayout {
 
     private final UserService userService;
