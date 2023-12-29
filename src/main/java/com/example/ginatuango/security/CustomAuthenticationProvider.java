@@ -4,8 +4,15 @@ import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +23,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private UserService userService;
+
+//    NoOpPasswordEncoder for testing
+//    BCryptPasswordEncoder
+//    Argon2PasswordEncoder
+//    DelegatingPasswordEncoder for production
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private NoOpPasswordEncoder passwordEncoder;
+//    @Autowired
+//    private DelegatingPasswordEncoder passwordEncoder;
+
 
 
     @Override
@@ -26,13 +41,20 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         Optional<User> user = userService.getUserByUsername(username);
-        
+        if (user.isEmpty()){
+            throw new UsernameNotFoundException("Username not found");
+        }
+        if(passwordEncoder.matches(password, user.get().getPassword())){
+            return new UsernamePasswordAuthenticationToken(username, password);
+        }
+        else{
+            throw new BadCredentialsException("Incorrect login information");
+        }
 
-        return null;
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }
