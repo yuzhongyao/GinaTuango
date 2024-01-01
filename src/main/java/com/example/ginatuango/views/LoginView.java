@@ -1,24 +1,31 @@
 package com.example.ginatuango.views;
 
 import com.example.ginatuango.data.entities.User;
+import com.example.ginatuango.utils.UTILS;
 import com.example.ginatuango.views.components.LoginForm;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.spring.security.AuthenticationContext;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Route(value = "/login")
 public class LoginView extends VerticalLayout implements BeforeEnterObserver{
 
     LoginI18n i18n = LoginI18n.createDefault();
     private final com.vaadin.flow.component.login.LoginForm login = new com.vaadin.flow.component.login.LoginForm();
+    private final transient AuthenticationContext authenticationContext;
 
-    public LoginView(){
+    public LoginView(AuthenticationContext authenticationContext){
+        this.authenticationContext = authenticationContext;
         this.addClassName("login-form");
 
         H1 title = new H1();
@@ -57,5 +64,14 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver{
                 .getParameters().containsKey("error")){
             login.setError(true);
         }
+        if (authenticationContext.isAuthenticated()){
+            if(authenticationContext.getAuthenticatedUser(UserDetails.class).get().getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ADMIN"))){
+                UI.getCurrent().navigate("/admin");
+            }
+            else {
+                UI.getCurrent().navigate("/user");
+            }
+        }
+
     }
 }

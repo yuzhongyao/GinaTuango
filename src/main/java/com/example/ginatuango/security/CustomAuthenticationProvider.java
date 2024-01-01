@@ -9,6 +9,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +21,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -53,7 +58,27 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new UsernameNotFoundException("Username not found");
         }
         if(passwordEncoder().matches(password, user.get().getPassword())){
-            return new UsernamePasswordAuthenticationToken(username, password);
+            List<GrantedAuthority> authorityList = new ArrayList<>();
+            SimpleGrantedAuthority simpleGrantedAuthority;
+            UserDetails userDetails;
+            //Roles need to be prefixed with ROLE_
+            //e.g. @RolesAllowed("ADMIN") requires adding authority("ROLE_ADMIN")
+            if(user.get().isAdmin()){
+                simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
+
+            }
+            else{
+                simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
+
+            }
+
+            authorityList.add(simpleGrantedAuthority);
+            userDetails = new org.springframework.security.core.userdetails.User(
+                    user.get().getEmail(),
+                    user.get().getPassword(),
+                    authorityList
+            );
+            return new UsernamePasswordAuthenticationToken(userDetails, password,authorityList);
         }
         else{
             throw new BadCredentialsException("Incorrect login information");

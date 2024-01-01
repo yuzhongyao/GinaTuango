@@ -1,7 +1,9 @@
 package com.example.ginatuango.views;
 
 
+import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.CustomService;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
@@ -14,8 +16,10 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,7 +36,8 @@ public class AdminDashboardView extends VerticalLayout implements BeforeEnterObs
     Grid<Object[]> orderSum = new Grid<>();
 
     @Autowired
-    public AdminDashboardView(CustomService customService) {
+    public AdminDashboardView(CustomService customService,AuthenticationContext authenticationContext) {
+
         this.customService = customService;
         configureGrid();
 
@@ -64,21 +69,6 @@ public class AdminDashboardView extends VerticalLayout implements BeforeEnterObs
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-//        Object userObject = VaadinSession.getCurrent().getAttribute("user");
-//        if(userObject instanceof User){
-//            User user = (User) userObject;
-//            //non admins redirected to user dashboard
-//            if(!user.isAdmin()){
-//                beforeEnterEvent.rerouteTo("/user");
-//            }
-//            //admin already logged in
-//            else{
-//                //enter
-//            }
-//        }
-//        else{
-//            beforeEnterEvent.rerouteTo(LoginView.class);
-//        }
     }
 
 
