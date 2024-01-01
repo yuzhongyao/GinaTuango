@@ -18,6 +18,10 @@
 		<vaadin.version>24.1.10</vaadin.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-bom -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>

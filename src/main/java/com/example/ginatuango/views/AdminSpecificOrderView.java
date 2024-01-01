@@ -8,13 +8,17 @@ import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 
 @Route(value = "admin/order",layout = AdminLayout.class)
+@PageTitle("Order")
+@RolesAllowed("ADMIN")
 public class AdminSpecificOrderView extends VerticalLayout implements HasUrlParameter<Integer> {
     private final OrderService orderService;
     Grid<Object[]> orderGrid = new Grid<>();
