@@ -9,12 +9,15 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 
 public class AdminLayout extends AppLayout {
 
+    private final transient AuthenticationContext authContext;
     //desktop
-    public AdminLayout(){
-       createHeader();
+    public AdminLayout(AuthenticationContext authenticationContext){
+        this.authContext = authenticationContext;
+        createHeader();
        createDrawer();
        this.setDrawerOpened(false);
     }
@@ -42,6 +45,7 @@ public class AdminLayout extends AppLayout {
     }
 
     public void createDrawer(){
+
         VerticalLayout list = new VerticalLayout();
 
         RouterLink home = new RouterLink("Home", AdminDashboardView.class);
@@ -54,6 +58,9 @@ public class AdminLayout extends AppLayout {
 
         Button logout = new Button();
         logout.setText("Logout");
+        logout.addClickListener(buttonClickEvent -> {
+            authContext.logout();;
+        });
 
         list.add(home,orders,customers,items,logout);
         addToDrawer(list);
