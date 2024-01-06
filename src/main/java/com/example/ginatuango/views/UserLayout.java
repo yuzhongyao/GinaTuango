@@ -2,6 +2,7 @@ package com.example.ginatuango.views;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -56,7 +57,13 @@ public class UserLayout extends AppLayout {
             list.add(admin);
         }
 
-        list.add(home);
+        Button logout = new Button();
+        logout.setText("Logout");
+        logout.addClickListener(buttonClickEvent -> {
+            authContext.logout();;
+        });
+
+        list.add(home, logout);
         addToDrawer(list);
 
     }
