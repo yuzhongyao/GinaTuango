@@ -74,7 +74,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
             authorityList.add(simpleGrantedAuthority);
             userDetails = new org.springframework.security.core.userdetails.User(
-                    user.get().getEmail(),
+                    user.get().getName(),
                     user.get().getPassword(),
                     authorityList
             );

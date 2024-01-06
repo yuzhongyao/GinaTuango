@@ -1,9 +1,13 @@
 package com.example.ginatuango.views;
 
+import com.example.ginatuango.data.entities.User;
+import com.example.ginatuango.services.UserService;
+import com.example.ginatuango.utils.UTILS;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -12,13 +16,18 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Optional;
+
 public class UserLayout extends AppLayout {
 
 
     private final transient AuthenticationContext authContext;
+    private final UserService userService;
+    private final VerticalLayout drawerList = new VerticalLayout();
 
-    public UserLayout(AuthenticationContext authContext){
+    public UserLayout(AuthenticationContext authContext, UserService userService){
         this.authContext = authContext;
+        this.userService = userService;
         createHeader();
         createDrawer();
         this.setDrawerOpened(false);
@@ -46,16 +55,26 @@ public class UserLayout extends AppLayout {
     }
 
     private void createDrawer() {
-        VerticalLayout list = new VerticalLayout();
 
         RouterLink home = new RouterLink("Home", MainView.class);
         home.setHighlightCondition(HighlightConditions.sameLocation());
 
-        boolean isAdmin = authContext.getAuthenticatedUser(UserDetails.class).get().getAuthorities().stream().anyMatch(grantedAuthority -> "ROLE_ADMIN".equals(grantedAuthority.getAuthority()));
+        UserDetails userDetails = authContext.getAuthenticatedUser(UserDetails.class).get();
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(grantedAuthority -> "ROLE_ADMIN".equals(grantedAuthority.getAuthority()));
         if(isAdmin){
             RouterLink admin = new RouterLink("ADMIN", AdminDashboardView.class);
-            list.add(admin);
+            drawerList.add(admin);
         }
+        else {
+            Optional<User> user = userService.getUserByUsername(userDetails.getUsername());
+
+            user.ifPresent(user1 -> {
+                RouterLink account = new RouterLink("Account", UserAccountView.class, user.get().getId());
+                drawerList.add(account);
+            });
+
+        }
+
 
         Button logout = new Button();
         logout.setText("Logout");
@@ -63,8 +82,8 @@ public class UserLayout extends AppLayout {
             authContext.logout();;
         });
 
-        list.add(home, logout);
-        addToDrawer(list);
+        drawerList.add(home, logout);
+        addToDrawer(drawerList);
 
     }
 
