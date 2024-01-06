@@ -2,7 +2,6 @@ package com.example.ginatuango.views;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -10,20 +9,21 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.security.AuthenticationContext;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public class AdminLayout extends AppLayout {
+public class UserLayout extends AppLayout {
+
 
     private final transient AuthenticationContext authContext;
-    //desktop
-    public AdminLayout(AuthenticationContext authenticationContext){
-        this.authContext = authenticationContext;
+
+    public UserLayout(AuthenticationContext authContext){
+        this.authContext = authContext;
         createHeader();
         createDrawer();
         this.setDrawerOpened(false);
     }
 
-    public void createHeader(){
-
+    private void createHeader() {
         HorizontalLayout header = new HorizontalLayout();
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.setWidthFull();
@@ -35,7 +35,7 @@ public class AdminLayout extends AppLayout {
         H1 title = new H1("");
         title.setText("GINA TUANGO");
         title.addClassName("center");
-        RouterLink home = new RouterLink("", MainView.class);
+        RouterLink home = new RouterLink("",MainView.class);
         home.add(title);
 
         header.add(home,toggle);
@@ -44,31 +44,23 @@ public class AdminLayout extends AppLayout {
         addToNavbar(header);
     }
 
-    public void createDrawer(){
-
+    private void createDrawer() {
         VerticalLayout list = new VerticalLayout();
 
         RouterLink home = new RouterLink("Home", MainView.class);
         home.setHighlightCondition(HighlightConditions.sameLocation());
 
-        RouterLink dashboard = new RouterLink("Dashboard", AdminDashboardView.class);
+        boolean isAdmin = authContext.getAuthenticatedUser(UserDetails.class).get().getAuthorities().stream().anyMatch(grantedAuthority -> "ROLE_ADMIN".equals(grantedAuthority.getAuthority()));
+        if(isAdmin){
+            RouterLink admin = new RouterLink("ADMIN", AdminDashboardView.class);
+            list.add(admin);
+        }
 
-        RouterLink orders = new RouterLink("Orders", AdminOrdersView.class);
-        RouterLink customers = new RouterLink("Customers", AdminCustomersView.class);
-        RouterLink items = new RouterLink("Items", AdminItemsView.class);
-
-
-        Button logout = new Button();
-        logout.setText("Logout");
-        logout.addClickListener(buttonClickEvent -> {
-            authContext.logout();;
-        });
-
-        list.add(home,dashboard,orders,customers,items,logout);
+        list.add(home);
         addToDrawer(list);
 
-
     }
+
 
 
 

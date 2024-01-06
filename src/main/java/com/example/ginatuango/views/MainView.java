@@ -6,7 +6,7 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 
-@Route(value = "")
+@Route(value = "", layout = UserLayout.class)
 @PermitAll
 public class MainView extends VerticalLayout {
 
