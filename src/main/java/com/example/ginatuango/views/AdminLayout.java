@@ -1,5 +1,9 @@
 package com.example.ginatuango.views;
 
+import com.example.ginatuango.views.admin.AdminCustomersView;
+import com.example.ginatuango.views.admin.AdminDashboardView;
+import com.example.ginatuango.views.admin.AdminItemsView;
+import com.example.ginatuango.views.admin.AdminOrdersView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;

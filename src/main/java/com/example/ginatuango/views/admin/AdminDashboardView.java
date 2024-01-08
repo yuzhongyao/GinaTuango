@@ -1,8 +1,9 @@
-package com.example.ginatuango.views;
+package com.example.ginatuango.views.admin;
 
 
 import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.CustomService;
+import com.example.ginatuango.views.AdminLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;

@@ -1,4 +1,4 @@
-package com.example.ginatuango.views;
+package com.example.ginatuango.views.admin;
 
 
 import com.example.ginatuango.data.entities.Category;
@@ -7,6 +7,7 @@ import com.example.ginatuango.data.entities.ItemSale;
 import com.example.ginatuango.data.entities.ItemSaleType;
 import com.example.ginatuango.services.*;
 import com.example.ginatuango.utils.UTILS;
+import com.example.ginatuango.views.AdminLayout;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;

@@ -1,18 +1,14 @@
-package com.example.ginatuango.views;
+package com.example.ginatuango.views.admin;
 
 import com.example.ginatuango.data.entities.Order;
 import com.example.ginatuango.services.OrderService;
+import com.example.ginatuango.views.AdminLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.*;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 @Route(value = "/admin/orders",layout = AdminLayout.class)
 @PageTitle("Orders")
