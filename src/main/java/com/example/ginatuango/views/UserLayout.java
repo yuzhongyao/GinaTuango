@@ -6,7 +6,9 @@ import com.example.ginatuango.utils.UTILS;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -39,8 +41,15 @@ public class UserLayout extends AppLayout {
         header.setWidthFull();
         header.addClassNames("py-0", "px-m");
 
+        Div div = new Div();
+        div.getStyle().set("margin-left", "auto");
+
         DrawerToggle toggle = new DrawerToggle();
-        toggle.getStyle().set("margin-left", "auto");
+
+        Button cartButton = new Button();
+        cartButton.setIcon(VaadinIcon.CART.create());
+
+        div.add(cartButton, toggle);
 
         H1 title = new H1("");
         title.setText("GINA TUANGO");
@@ -48,7 +57,7 @@ public class UserLayout extends AppLayout {
         RouterLink home = new RouterLink("",MainView.class);
         home.add(title);
 
-        header.add(home,toggle);
+        header.add(home,div);
 
         //add components
         addToNavbar(header);
