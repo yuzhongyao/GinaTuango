@@ -32,6 +32,7 @@ import com.vaadin.flow.router.RouterLink;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Route(value = "/admin/items", layout = AdminLayout.class)
@@ -268,6 +269,8 @@ public class AdminItemsView extends VerticalLayout {
             TextArea description = new TextArea("Description");
             description.setValue(item.getDescription());
             ComboBox<Category> category = new ComboBox<>("Category");
+            category.setItems(categoryService.getCategories());
+            category.setItemLabelGenerator(Category::getName);
             category.setValue(item.getCategory());
             TextField stock = new TextField("Stock");
             stock.setValue(String.valueOf(item.getStock()));
