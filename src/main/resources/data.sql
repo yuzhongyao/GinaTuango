@@ -1,91 +1,74 @@
--- Inserts for Addresses table
-INSERT INTO addresses (street, postal, city, province, country)
-VALUES
-  ('123 Main St', '12345', 'City A', 'Province A', 'Country A'),
-  ('456 Elm St', '54321', 'City B', 'Province B', 'Country B'),
-  ('789 Oak St', '98765', 'City C', 'Province C', 'Country C'),
-  -- Add more addresses as needed
-  ('101 Pine St', '11111', 'City D', 'Province D', 'Country D'),
-  ('202 Cedar St', '22222', 'City E', 'Province E', 'Country E');
+-- Categories
+INSERT INTO categories (category_name) VALUES
+('Fruits'),
+('Vegetables'),
+('Grocery'),
+('Frozen'),
+('Other');
 
--- Inserts for Users table
-INSERT INTO users (user_name, password, email, phone, address_id, is_admin)
-VALUES
-  ('User1', 'Password1', 'user1@example.com', '111-111-1111', 1, true),
-  ('User2', 'Password2', 'user2@example.com', '222-222-2222', 2, false),
-  ('User3', 'Password3', 'user3@example.com', '333-333-3333', 3, false),
-  -- Add more users as needed
-  ('User4', 'Password4', 'user4@example.com', '444-444-4444', 4, true),
-  ('User5', 'Password5', 'user5@example.com', '555-555-5555', 5, false);
+-- Addresses (Sample Addresses)
+INSERT INTO addresses (street, postal, city, province, country) VALUES
+('123 Apple St', '12345', 'Orangeville', 'Ontario', 'Canada'),
+('456 Banana Ave', '67890', 'Grapetown', 'California', 'USA'),
+('789 Cherry Blvd', '54321', 'Melon City', 'Florida', 'USA'),
+('321 Pear Rd', '98765', 'Lemonville', 'Texas', 'USA'),
+('876 Plum Lane', '13579', 'Peachville', 'Georgia', 'USA');
 
--- Inserts for Categories table
-INSERT INTO categories (category_name)
-VALUES
-  ('Category A'),
-  ('Category B'),
-  ('Category C'),
-  -- Add more categories as needed
-  ('Category D'),
-  ('Category E');
+-- Users (Sample Users)
+INSERT INTO users (user_name, password, email, phone, address_id, is_admin) VALUES
+('1', '1', 'user1@example.com', '123-4567', 1, TRUE),
+('user1', 'password1', 'user1@example.com', '123-4567', 1, FALSE),
+('user2', 'password2', 'user2@example.com', '987-6543', 2, FALSE),
+('admin', 'admin', 'admin@example.com', '111-2222', 3, TRUE),
+('buyer', 'buypass', 'buyer@example.com', '333-4444', 4, FALSE),
+('seller', 'sellpass', 'seller@example.com', '555-6666', 5, FALSE);
 
--- Inserts for Items table
-INSERT INTO items (item_name, description, category_id, stock, price)
-VALUES
-  ('Item 1', 'Description 1', 1, 100.00, 9.99),
-  ('Item 2', 'Description 2', 2, 50.00, 19.99),
-  ('Item 3', 'Description 3', 3, 75.00, 14.99),
-  -- Add more items as needed
-  ('Item 4', 'Description 4', 1, 120.00, 11.99),
-  ('Item 5', 'Description 5', 2, 60.00, 24.99);
+-- Items (Sample Items)
+INSERT INTO items (item_name, description, category_id, stock, price) VALUES
+('Apple', 'Fresh and juicy apples', 1, 100, 1.99),
+('Carrot', 'Organic carrots', 2, 50, 2.49),
+('Rice', 'Long-grain rice', 3, 200, 5.99),
+('Frozen Pizza', 'Pepperoni pizza', 4, 30, 7.99),
+('Toothpaste', 'Mint-flavored toothpaste', 5, 100, 3.49);
 
--- Inserts for Images table
-INSERT INTO images (item_id, url)
-VALUES
-  (1, 'https://example.com/image1.jpg'),
-  (2, 'https://example.com/image2.jpg'),
-  (3, 'https://example.com/image3.jpg'),
-  -- Add more images as needed
-  (4, 'https://example.com/image4.jpg'),
-  (5, 'https://example.com/image5.jpg');
+-- Images (Sample Images - Linking to Items)
+INSERT INTO images (item_id, url) VALUES
+(1, 'https://example.com/apple_image.jpg'),
+(2, 'https://example.com/carrot_image.jpg'),
+(3, 'https://example.com/rice_image.jpg'),
+(4, 'https://example.com/pizza_image.jpg'),
+(5, 'https://example.com/toothpaste_image.jpg');
 
--- Inserts for ItemSaleTypes table
-INSERT INTO itemSaleTypes (type_name)
-VALUES
-  ('Type X'),
-  ('Type Y'),
-  ('Type Z'),
-  -- Add more types as needed
-  ('Type A'),
-  ('Type B');
+-- Sale Types (Sample Sale Types)
+INSERT INTO itemSaleTypes (type_name) VALUES
+('Bulk'),
+('Per Pound'),
+('Per Unit'),
+('Bundle'),
+('Promotion');
 
--- Inserts for Orders table
-INSERT INTO orders (user_id, sale_date)
-VALUES
-  (1, '2023-09-01'),
-  (2, '2023-09-02'),
-  (3, '2023-09-03'),
-  -- Add more orders as needed
-  (4, '2023-09-04'),
-  (5, '2023-09-05');
+-- Orders (Sample Orders)
+INSERT INTO orders (user_id, sale_date) VALUES
+(1, '2024-01-15'),
+(2, '2024-01-16'),
+(3, '2024-01-17'),
+(4, '2024-01-18'),
+(5, '2024-01-19');
 
--- Inserts for ItemSales table
-INSERT INTO itemSales (item_id, quantity, type_id, sale_date, item_cost, order_id, isOnSale)
-VALUES
-  (1, 3.0, 1, '2023-09-01', 29.97, 1, true),
-    (3, 4.0, 3, '2023-09-01', 59.96, 1, false),
-    (2, 2.0, 2, '2023-09-02', 39.98, 1, true),
-    (4, 6.0, 1, '2023-09-02', 71.94, 2, false),
-    (5, 5.0, 2, '2023-09-03', 124.95, 2, true),
-    (1, 4.0, 3, '2023-09-03', 39.96, 3, false),
-    (2, 5.0, 1, '2023-09-04', 99.95, 4, true),
-    (3, 3.0, 2, '2023-09-04', 44.97, 4, false),
-    (4, 2.0, 3, '2023-09-05', 23.98, 4, true),
-    (5, 7.0, 1, '2023-09-05', 104.93, 5, false),
-    (1, 6.0, 2, '2023-09-06', 59.94, 5, true),
-    (2, 4.0, 3, '2023-09-06', 79.96, 5, false);
---  (1, 5.0, 1, '2023-09-01', 49.95, 1, true),
---  (2, 3.0, 2, '2023-09-02', 59.97, 2, false),
---  (3, 2.5, 3, '2023-09-03', 37.48, 3, true),
---  -- Add more item sales as needed
---  (4, 4.0, 1, '2023-09-04', 47.96, 4, false),
---  (5, 6.0, 2, '2023-09-05', 149.94, 5, true);
+-- Item Sales (Sample Item Sales)
+INSERT INTO itemSales (item_id, quantity, type_id, sale_date, item_cost, order_id, isOnSale) VALUES
+(1, 5, 3, '2024-01-15', 9.95, 1, TRUE),
+(2, 3, 2, '2024-01-16', 7.47, 2, FALSE),
+(3, 10, 1, '2024-01-17', 59.90, 3, TRUE),
+(4, 2, 4, '2024-01-18', 15.98, 4, FALSE),
+(5, 1, 5, '2024-01-19', 3.49, 5, TRUE),
+(2, 3, 3, '2024-01-15', 5.97, 1, FALSE),
+(2, 6, 2, '2024-01-21', 14.94, 2, TRUE),
+(3, 8, 1, '2024-01-22', 47.92, 3, FALSE),
+(4, 1, 4, '2024-01-23', 7.99, 4, TRUE),
+(5, 4, 5, '2024-01-24', 13.96, 5, FALSE),
+(3, 2, 3, '2024-01-15', 3.98, 1, TRUE),
+(2, 5, 2, '2024-01-26', 12.45, 2, FALSE),
+(3, 7, 1, '2024-01-27', 41.93, 3, TRUE),
+(4, 3, 4, '2024-01-28', 23.97, 4, FALSE),
+(5, 9, 5, '2024-01-29', 31.41, 5, TRUE);
