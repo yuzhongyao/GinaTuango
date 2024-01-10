@@ -17,7 +17,7 @@ INSERT INTO addresses (street, postal, city, province, country) VALUES
 -- Users (Sample Users)
 INSERT INTO users (user_name, password, email, phone, address_id, is_admin) VALUES
 ('1', '1', 'user1@example.com', '123-4567', 1, TRUE),
-('user1', 'password1', 'user1@example.com', '123-4567', 1, FALSE),
+('2', '2', 'user1@example.com', '123-4567', 1, FALSE),
 ('user2', 'password2', 'user2@example.com', '987-6543', 2, FALSE),
 ('admin', 'admin', 'admin@example.com', '111-2222', 3, TRUE),
 ('buyer', 'buypass', 'buyer@example.com', '333-4444', 4, FALSE),
