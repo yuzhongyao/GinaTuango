@@ -119,11 +119,21 @@ public class MainView extends VerticalLayout {
         groceryList.setRenderer(itemRenderer);
 
         Tab frozenTab = new Tab("Frozen");
+        VirtualList<Item> frozenList = new VirtualList<>();
+        List<Item> frozenItems = itemService.getItemsByCategory("Frozen");
+        frozenList.setItems(frozenItems);
+        Div frozenDiv = new Div();
+        frozenDiv.setWidthFull();
+        frozenDiv.setHeightFull();
+        frozenDiv.add(frozenList);
+        frozenList.setRenderer(itemRenderer);
+
         Tab othersTab = new Tab("Other");
 
         tabs.add(fruitsTab, fruitsDiv);
         tabs.add(vegetablesTab,vegetablesDiv);
         tabs.add(groceryTab,groceryDiv);
+        tabs.add(frozenTab,frozenDiv);
 
         tabs.setSelectedTab(fruitsTab);
         tabs.setWidthFull();
