@@ -81,6 +81,7 @@ public class MainView extends VerticalLayout {
             IntegerField quantity = new IntegerField();
             quantity.setValue(0);
             quantity.setStepButtonsVisible(true);
+            quantity.setMin(0);
             quantity.setLabel("Quantity");
 
             Button addToCart = new Button();
