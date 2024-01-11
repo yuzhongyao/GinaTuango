@@ -109,11 +109,22 @@ public class MainView extends VerticalLayout {
         vegetablesList.setRenderer(itemRenderer);
 
         Tab groceryTab = new Tab("Grocery");
+        VirtualList<Item> groceryList = new VirtualList<>();
+        List<Item> groceryItems = itemService.getItemsByCategory("Grocery");
+        groceryList.setItems(groceryItems);
+        Div groceryDiv = new Div();
+        groceryDiv.setWidthFull();
+        groceryDiv.setHeightFull();
+        groceryDiv.add(groceryList);
+        groceryList.setRenderer(itemRenderer);
+
         Tab frozenTab = new Tab("Frozen");
         Tab othersTab = new Tab("Other");
 
         tabs.add(fruitsTab, fruitsDiv);
         tabs.add(vegetablesTab,vegetablesDiv);
+        tabs.add(groceryTab,groceryDiv);
+
         tabs.setSelectedTab(fruitsTab);
         tabs.setWidthFull();
         tabs.addThemeVariants(TabSheetVariant.LUMO_TABS_CENTERED);
