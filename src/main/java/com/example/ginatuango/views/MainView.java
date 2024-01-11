@@ -25,6 +25,8 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.PermitAll;
 
+import java.util.List;
+
 @Route(value = "", layout = UserLayout.class)
 @PermitAll
 public class MainView extends VerticalLayout {
@@ -47,7 +49,8 @@ public class MainView extends VerticalLayout {
         //TO-DO need to add item service method to get items based on categories
         Tab fruitsTab = new Tab("Fruits");
         VirtualList<Item> fruitsList = new VirtualList<>();
-        fruitsList.setItems(itemService.getItems());
+        List<Item> fruitItems = itemService.getItemsByCategory("Fruits");
+        fruitsList.setItems(fruitItems);
         Div fruitsDiv = new Div();
         fruitsDiv.setWidthFull();
         fruitsDiv.setHeightFull();
