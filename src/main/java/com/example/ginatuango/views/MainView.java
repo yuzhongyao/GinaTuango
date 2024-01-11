@@ -46,7 +46,6 @@ public class MainView extends VerticalLayout {
 
         //fruits
         //tabsheet needs content to be in a div
-        //TO-DO need to add item service method to get items based on categories
         Tab fruitsTab = new Tab("Fruits");
         VirtualList<Item> fruitsList = new VirtualList<>();
         List<Item> fruitItems = itemService.getItemsByCategory("Fruits");
@@ -56,18 +55,18 @@ public class MainView extends VerticalLayout {
         fruitsDiv.setHeightFull();
         fruitsDiv.add(fruitsList);
 
-        ComponentRenderer<Component,Item> fruitRenderer = new ComponentRenderer<>(fruitItem ->{
+        ComponentRenderer<Component,Item> itemRenderer = new ComponentRenderer<>(item ->{
             VerticalLayout card = new VerticalLayout();
 
             HorizontalLayout horizontalLayout = new HorizontalLayout();
 
             VerticalLayout fruitInfo = new VerticalLayout();
 
-            H4 fruitName = new H4(fruitItem.getName());
-            Text fruitDescription = new Text(fruitItem.getDescription());
-            Text fruitPrice = new Text("$" + fruitItem.getPrice());
+            H4 itemName = new H4(item.getName());
+            Text fruitDescription = new Text(item.getDescription());
+            Text fruitPrice = new Text("$" + item.getPrice());
             Html newLine = new Html("<br>");
-            fruitInfo.add(fruitName, fruitDescription, newLine, fruitPrice);
+            fruitInfo.add(itemName, fruitDescription, newLine, fruitPrice);
             horizontalLayout.setMargin(true);
 
             VerticalLayout buyLayout = new VerticalLayout();
@@ -97,13 +96,24 @@ public class MainView extends VerticalLayout {
 
             return card;
         });
-        fruitsList.setRenderer(fruitRenderer);
+        fruitsList.setRenderer(itemRenderer);
 
         Tab vegetablesTab = new Tab("Vegetables");
+        VirtualList<Item> vegetablesList = new VirtualList<>();
+        List<Item> vegetableItems = itemService.getItemsByCategory("Vegetables");
+        vegetablesList.setItems(vegetableItems);
+        Div vegetablesDiv = new Div();
+        vegetablesDiv.setWidthFull();
+        vegetablesDiv.setHeightFull();
+        vegetablesDiv.add(vegetablesList);
+        vegetablesList.setRenderer(itemRenderer);
+
         Tab groceryTab = new Tab("Grocery");
+        Tab frozenTab = new Tab("Frozen");
         Tab othersTab = new Tab("Other");
 
         tabs.add(fruitsTab, fruitsDiv);
+        tabs.add(vegetablesTab,vegetablesDiv);
         tabs.setSelectedTab(fruitsTab);
         tabs.setWidthFull();
         tabs.addThemeVariants(TabSheetVariant.LUMO_TABS_CENTERED);
