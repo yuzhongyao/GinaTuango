@@ -1,6 +1,7 @@
 package com.example.ginatuango.views;
 
 import com.example.ginatuango.data.entities.Category;
+import com.example.ginatuango.data.entities.Image;
 import com.example.ginatuango.data.entities.Item;
 import com.example.ginatuango.data.entities.ItemSaleType;
 import com.example.ginatuango.services.CategoryService;
@@ -62,6 +63,15 @@ public class MainView extends VerticalLayout {
 
             VerticalLayout fruitInfo = new VerticalLayout();
 
+            //TO DO
+            //update to use AWS to get images
+            List<Image> imagesUrls = imageService.getImagesByItemId(item.getId());
+            com.vaadin.flow.component.html.Image itemImage = new com.vaadin.flow.component.html.Image();
+            itemImage.setSrc(imagesUrls.get(0).getImageUrl());
+            itemImage.setMaxHeight("325px");
+            itemImage.setMaxWidth("325px");
+
+
             H4 itemName = new H4(item.getName());
             Text fruitDescription = new Text(item.getDescription());
             Text fruitPrice = new Text("$" + item.getPrice());
@@ -92,7 +102,7 @@ public class MainView extends VerticalLayout {
 
 
 
-            horizontalLayout.add(fruitInfo, buyLayout);
+            horizontalLayout.add(itemImage, fruitInfo, buyLayout);
             card.add(horizontalLayout, new Line());
 
             return card;
