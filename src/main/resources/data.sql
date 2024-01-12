@@ -25,26 +25,26 @@ INSERT INTO users (user_name, password, email, phone, address_id, is_admin) VALU
 
 -- Items (Sample Items)
 INSERT INTO items (item_name, description, category_id, stock, price) VALUES
-('Apple', 'Fresh and juicy apples', 1, 100, 1.99),
-('Carrot', 'Organic carrots', 2, 50, 2.49),
-('Rice', 'Long-grain rice', 3, 200, 5.99),
-('Frozen Pizza', 'Pepperoni pizza', 4, 30, 7.99),
-('Toothpaste', 'Mint-flavored toothpaste', 5, 100, 3.49);
+('Orange', 'California Blue Jay Naval oranges', 1, 100, 1.99),
+('Bok Choy', 'Fresh Bok Choy', 2, 50, 2.49),
+('XL Eggs', 'Canadian farmed eggs', 3, 200, 5.99),
+('Durian', 'Thailand durian', 4, 30, 7.99),
+('Toilet Paper', 'Charmain ultra soft 24 pack', 5, 100, 3.49);
 
 -- Images (Sample Images - Linking to Items)
 INSERT INTO images (item_id, url) VALUES
-(1, 'https://example.com/apple_image.jpg'),
-(2, 'https://example.com/carrot_image.jpg'),
-(3, 'https://example.com/rice_image.jpg'),
-(4, 'https://example.com/pizza_image.jpg'),
-(5, 'https://example.com/toothpaste_image.jpg');
+(1, 'images/bluejayorange.png'),
+(2, 'images/bokchoy.jpg'),
+(3, 'images/xlbox.jpg'),
+(4, 'images/durian.jpg'),
+(5, 'images/toiletpaper.jpg');
 
 -- Sale Types (Sample Sale Types)
 INSERT INTO itemSaleTypes (type_name) VALUES
-('Bulk'),
+('Per Case'),
 ('Per Pound'),
-('Per Unit'),
-('Bundle'),
+('Per Bag'),
+('Per Layer'),
 ('Promotion');
 
 -- Orders (Sample Orders)
