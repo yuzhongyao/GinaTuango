@@ -2,6 +2,7 @@ package com.example.ginatuango.views.user;
 
 import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.UserService;
+import com.example.ginatuango.views.UserLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -14,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
-@Route(value = "/user")
+@Route(value = "/user", layout = UserLayout.class)
 @PageTitle("Account Details")
 @RolesAllowed("USER")
 public class UserAccountView extends VerticalLayout implements HasUrlParameter<Integer> {
@@ -40,6 +41,9 @@ public class UserAccountView extends VerticalLayout implements HasUrlParameter<I
         }
 
         H1 title = new H1("Welcome " + name);
+
+        this.setWidthFull();
+        this.setAlignItems(Alignment.CENTER);
         add(title);
     }
 
