@@ -4,6 +4,7 @@ import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.UserLayout;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
@@ -58,5 +59,8 @@ public class UserAccountView extends VerticalLayout implements HasUrlParameter<I
         if(user.get().getId() != userId){
             userId = user.get().getId();
         }
+        //TO DO
+        //update to domain name
+        UI.getCurrent().getPage().getHistory().pushState(null, "http://localhost:8080/user/" + userId);
     }
 }
