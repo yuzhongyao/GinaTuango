@@ -160,7 +160,7 @@ public class MainView extends VerticalLayout {
         tabs.addThemeVariants(TabSheetVariant.LUMO_TABS_CENTERED);
 
         add(tabs);
-
+        this.setAlignItems(Alignment.CENTER);
 
 
 
