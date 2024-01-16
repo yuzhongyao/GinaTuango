@@ -6,7 +6,10 @@ import com.example.ginatuango.views.UserLayout;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import jakarta.annotation.security.RolesAllowed;
@@ -43,9 +46,34 @@ public class UserAccountView extends VerticalLayout implements HasUrlParameter<I
         H1 title = new H1("Welcome " + name);
         Text t = new Text(routeParameters);
 
+        VerticalLayout accountDetailsLayout = new VerticalLayout();
+        accountDetailsLayout.setWidthFull();
+        accountDetailsLayout.setAlignItems(Alignment.CENTER);
+
+        H3 accountDetailsTitle = new H3("Account Details");
+
+        H6 accountNameTitle = new H6("Name");
+        Text accountName = new Text(user.get().getName());
+
+        H6 accountAddressTitle = new H6("Address");
+        Text accountAddress = new Text(user.get().getAddress().toString());
+
+        H6 accountNumberTitle = new H6("Number");
+        Text accountNumber = new Text(user.get().getPhone());
+
+        H6 accountEmailTitle = new H6("Email");
+        Text accountEmail = new Text(user.get().getEmail());
+
+        accountDetailsLayout.add(accountDetailsTitle,accountNameTitle
+        , accountName, accountAddressTitle, accountAddress,
+                accountNumberTitle, accountNumber,
+                accountEmailTitle, accountEmail);
+
+
+
         this.setWidthFull();
         this.setAlignItems(Alignment.CENTER);
-        add(title , t);
+        add(title , t, accountDetailsLayout);
     }
 
 
