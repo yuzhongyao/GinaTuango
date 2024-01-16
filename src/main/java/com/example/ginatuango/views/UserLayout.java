@@ -4,6 +4,7 @@ import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.admin.AdminDashboardView;
 import com.example.ginatuango.views.user.UserAccountView;
+import com.example.ginatuango.views.user.UserOrdersView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
@@ -79,7 +80,8 @@ public class UserLayout extends AppLayout {
 
             user.ifPresent(user1 -> {
                 RouterLink account = new RouterLink("Account", UserAccountView.class, user.get().getId());
-                drawerList.add(account);
+                RouterLink orders = new RouterLink("Orders", UserOrdersView.class);
+                drawerList.add(account, orders);
             });
 
         }
