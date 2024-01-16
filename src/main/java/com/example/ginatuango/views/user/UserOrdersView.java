@@ -6,10 +6,14 @@ import com.example.ginatuango.services.UserService;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.security.AuthenticationContext;
+import jakarta.annotation.security.RolesAllowed;
 
 @Route(value = "/user/orders")
+@PageTitle("Orders")
+@RolesAllowed("USER")
 public class UserOrdersView extends VerticalLayout implements BeforeEnterObserver {
 
    private final UserService userService;
