@@ -69,7 +69,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver{
                 UI.getCurrent().navigate("/admin");
             }
             else {
-                UI.getCurrent().navigate("/user");
+                UI.getCurrent().navigate("/");
             }
         }
 
