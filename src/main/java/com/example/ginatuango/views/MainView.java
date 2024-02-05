@@ -94,8 +94,13 @@ public class MainView extends VerticalLayout {
             quantity.setMin(0);
             quantity.setLabel("Quantity");
 
+            //ADD TO CART BUTTON
             Button addToCart = new Button();
             addToCart.setText("Add To Cart");
+            addToCart.addClickListener(buttonClickEvent -> {
+
+            });
+
 
             buyLayout.add(categoryComboBox, quantity,addToCart);
 

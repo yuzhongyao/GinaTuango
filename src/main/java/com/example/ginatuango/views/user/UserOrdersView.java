@@ -7,7 +7,10 @@ import com.example.ginatuango.services.ItemSaleService;
 import com.example.ginatuango.services.OrderService;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.UserLayout;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import jakarta.annotation.security.RolesAllowed;
@@ -29,6 +32,7 @@ public class UserOrdersView extends VerticalLayout implements  BeforeEnterObserv
 
     private Optional<User> user;
     private List<Order> orders;
+    private Grid<Order> orderGrid = new Grid<>();
     private int orderId;
 
     public UserOrdersView(UserService userService, OrderService orderService, ItemSaleService itemSaleService, AuthenticationContext authenticationContext) {
@@ -40,7 +44,20 @@ public class UserOrdersView extends VerticalLayout implements  BeforeEnterObserv
         user = userService.getUserByUsername(authenticationContext.getAuthenticatedUser(UserDetails.class).get().getUsername());
         orders = orderService.getOrdersByUser(user.get());
 
+        H1 title = new H1();
+        title.setText("Your Orders");
 
+        configureGrid();
+        add(title, orderGrid);
+
+    }
+
+    private void configureGrid() {
+        ListDataProvider<Order> dataProvider = new ListDataProvider<>(orders);
+        orderGrid.setDataProvider(dataProvider);
+        orderGrid.addColumn(order -> order.getDate()).setHeader("Date");
+        orderGrid.addColumn(order -> order.getUser().getName()).setHeader("User");
+        orderGrid.addColumn(order -> order.getUser().getId()).setHeader("User ID");
     }
 
 
