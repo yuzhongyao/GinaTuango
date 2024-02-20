@@ -79,9 +79,26 @@ CREATE TABLE itemSales(
     FOREIGN KEY (item_id) REFERENCES items(item_id),
     FOREIGN KEY (type_id) REFERENCES itemSaleTypes(type_id),
     FOREIGN KEY (order_id) REFERENCES orders(order_id)
-
 );
 
+DROP TABLE IF EXISTS shoppingCarts cascade;
+CREATE TABLE shoppingCarts(
+    cart_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
+);
+
+DROP TABLE IF EXISTS cartItems cascade;
+CREATE TABLE cartItems(
+    cart_item_id SERIAL PRIMARY KEY,
+    cart_id INT NOT NULL,
+    item_id INT NOT NULL,
+    quantity NUMERIC(10, 2) NOT NULL,
+    type_id INT NOT NULL,
+    FOREIGN KEY(cart_id) REFERENCES shoppingCarts(cart_id),
+    FOREIGN KEY(item_id) REFERENCES items(item_id),
+    FOREIGN KEY(type_id) REFERENCES itemSaleTypes(type_id)
+);
 
 
 
