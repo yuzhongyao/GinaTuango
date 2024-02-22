@@ -72,3 +72,21 @@ INSERT INTO itemSales (item_id, quantity, type_id, sale_date, item_cost, order_i
 (3, 7, 1, '2024-01-27', 41.93, 3, TRUE),
 (4, 3, 4, '2024-01-28', 23.97, 4, FALSE),
 (5, 9, 5, '2024-01-29', 31.41, 5, TRUE);
+
+-- Shopping Cart (Sample Shopping Carts)
+INSERT INTO shoppingCarts(cart_id, user_id) VALUES
+(1),
+(2),
+(3),
+(4),
+(5);
+
+-- Shopping Cart Items (Sample Shopping Cart Items)
+INSERT INTO cartItems(cart_id, item_id, quantity, type_id) VALUES
+(1,1,5,1),
+(1,1,3,4),
+(1,3,5,1),
+(2,2,7,3),
+(2,5,1,3),
+(2,1,1,1);
+
