@@ -43,8 +43,8 @@ public class UserLayout extends AppLayout {
     private void createHeader() {
         UserDetails userDetails = authContext.getAuthenticatedUser(UserDetails.class).get();
         Optional<User> user = userService.getUserByUsername(userDetails.getUsername());
-
         Cart cart =cartService.getCartByUser(user.get().getId());
+
         HorizontalLayout header = new HorizontalLayout();
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.setWidthFull();
