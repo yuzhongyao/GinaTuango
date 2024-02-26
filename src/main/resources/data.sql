@@ -74,7 +74,7 @@ INSERT INTO itemSales (item_id, quantity, type_id, sale_date, item_cost, order_i
 (5, 9, 5, '2024-01-29', 31.41, 5, TRUE);
 
 -- Shopping Cart (Sample Shopping Carts)
-INSERT INTO shoppingCarts(cart_id, user_id) VALUES
+INSERT INTO shoppingCarts(user_id) VALUES
 (1),
 (2),
 (3),

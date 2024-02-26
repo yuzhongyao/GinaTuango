@@ -1,6 +1,8 @@
 package com.example.ginatuango.views;
 
+import com.example.ginatuango.data.entities.Cart;
 import com.example.ginatuango.data.entities.User;
+import com.example.ginatuango.services.CartService;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.admin.AdminDashboardView;
 import com.example.ginatuango.views.user.UserAccountView;
@@ -25,18 +27,24 @@ public class UserLayout extends AppLayout {
 
 
     private final transient AuthenticationContext authContext;
+    private final CartService cartService;
     private final UserService userService;
     private final VerticalLayout drawerList = new VerticalLayout();
 
-    public UserLayout(AuthenticationContext authContext, UserService userService){
+    public UserLayout(AuthenticationContext authContext, UserService userService, CartService cartService){
         this.authContext = authContext;
         this.userService = userService;
+        this.cartService = cartService;
         createHeader();
         createDrawer();
         this.setDrawerOpened(false);
     }
 
     private void createHeader() {
+        UserDetails userDetails = authContext.getAuthenticatedUser(UserDetails.class).get();
+        Optional<User> user = userService.getUserByUsername(userDetails.getUsername());
+
+        Cart cart =cartService.getCartByUser(user.get().getId());
         HorizontalLayout header = new HorizontalLayout();
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         header.setWidthFull();
