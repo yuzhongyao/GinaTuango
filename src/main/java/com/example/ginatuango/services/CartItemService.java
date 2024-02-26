@@ -5,6 +5,8 @@ import com.example.ginatuango.repositories.CartItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CartItemService {
 
@@ -15,8 +17,8 @@ public class CartItemService {
         this.cartItemRepository = cartItemRepository;
     }
 
-    public CartItem getCartItemsByCart(int cartId){
-        return cartItemRepository.getCartItemsByCart(cartId);
+    public List<CartItem> getCartItemsByCart(int cartId){
+        return  cartItemRepository.getCartItemsByCart(cartId);
     }
 
 

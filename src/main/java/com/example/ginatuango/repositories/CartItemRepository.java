@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem,Integer> {
 
     @Query(value = "SELECT * FROM cartItems AS ci WHERE " +
             "ci.cart_id = :cartId;",nativeQuery = true)
-    CartItem getCartItemsByCart(@Param("cartId") int cartId);
+    List<CartItem> getCartItemsByCart(@Param("cartId") int cartId);
 }

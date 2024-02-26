@@ -1,7 +1,9 @@
 package com.example.ginatuango.views;
 
 import com.example.ginatuango.data.entities.Cart;
+import com.example.ginatuango.data.entities.CartItem;
 import com.example.ginatuango.data.entities.User;
+import com.example.ginatuango.services.CartItemService;
 import com.example.ginatuango.services.CartService;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.admin.AdminDashboardView;
@@ -21,6 +23,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.List;
 import java.util.Optional;
 
 public class UserLayout extends AppLayout {
@@ -28,13 +31,15 @@ public class UserLayout extends AppLayout {
 
     private final transient AuthenticationContext authContext;
     private final CartService cartService;
+    private final CartItemService cartItemService;
     private final UserService userService;
     private final VerticalLayout drawerList = new VerticalLayout();
 
-    public UserLayout(AuthenticationContext authContext, UserService userService, CartService cartService){
+    public UserLayout(AuthenticationContext authContext, UserService userService, CartService cartService, CartItemService cartItemService){
         this.authContext = authContext;
         this.userService = userService;
         this.cartService = cartService;
+        this.cartItemService = cartItemService;
         createHeader();
         createDrawer();
         this.setDrawerOpened(false);
@@ -44,6 +49,7 @@ public class UserLayout extends AppLayout {
         UserDetails userDetails = authContext.getAuthenticatedUser(UserDetails.class).get();
         Optional<User> user = userService.getUserByUsername(userDetails.getUsername());
         Cart cart =cartService.getCartByUser(user.get().getId());
+        List<CartItem> cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
 
         HorizontalLayout header = new HorizontalLayout();
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
