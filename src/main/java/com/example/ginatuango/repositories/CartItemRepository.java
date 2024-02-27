@@ -12,6 +12,6 @@ import java.util.List;
 public interface CartItemRepository extends JpaRepository<CartItem,Integer> {
 
     @Query(value = "SELECT * FROM cartItems AS ci WHERE " +
-            "ci.cart_id = :cartId;",nativeQuery = true)
+            "ci.cart_id = :cartId",nativeQuery = true)
     List<CartItem> getCartItemsByCart(@Param("cartId") int cartId);
 }

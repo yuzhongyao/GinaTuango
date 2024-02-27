@@ -7,6 +7,7 @@ import com.example.ginatuango.services.CartItemService;
 import com.example.ginatuango.services.CartService;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.admin.AdminDashboardView;
+import com.example.ginatuango.views.components.Counter;
 import com.example.ginatuango.views.user.UserAccountView;
 import com.example.ginatuango.views.user.UserOrdersView;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -61,10 +62,13 @@ public class UserLayout extends AppLayout {
 
         DrawerToggle toggle = new DrawerToggle();
 
+        HorizontalLayout cartButtonDiv = new HorizontalLayout();
+        cartButtonDiv.setSpacing(false);
         Button cartButton = new Button();
         cartButton.setIcon(VaadinIcon.CART.create());
+        cartButtonDiv.add(cartButton, new Counter(cartItems.size()));
 
-        div.add(cartButton, toggle);
+        div.add(cartButtonDiv, toggle);
 
         H1 title = new H1("");
         title.setText("GINA TUANGO");
