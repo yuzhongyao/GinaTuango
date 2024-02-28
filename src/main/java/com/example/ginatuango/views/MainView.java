@@ -1,13 +1,7 @@
 package com.example.ginatuango.views;
 
-import com.example.ginatuango.data.entities.Category;
-import com.example.ginatuango.data.entities.Image;
-import com.example.ginatuango.data.entities.Item;
-import com.example.ginatuango.data.entities.ItemSaleType;
-import com.example.ginatuango.services.CategoryService;
-import com.example.ginatuango.services.ImageService;
-import com.example.ginatuango.services.ItemSaleTypeService;
-import com.example.ginatuango.services.ItemService;
+import com.example.ginatuango.data.entities.*;
+import com.example.ginatuango.services.*;
 import com.example.ginatuango.views.components.Line;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Html;
@@ -24,9 +18,12 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.virtuallist.VirtualList;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.security.AuthenticationContext;
 import jakarta.annotation.security.PermitAll;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
+import java.util.Optional;
 
 @Route(value = "", layout = UserLayout.class)
 @PermitAll
@@ -35,11 +32,31 @@ public class MainView extends VerticalLayout {
     private final ItemService itemService;
     private final ImageService imageService;
     private final ItemSaleTypeService itemSaleTypeService;
+    private final CartService cartService;
+    private final CartItemService cartItemService;
+    private final transient AuthenticationContext authContext;
+    private final UserService userService;
+    private UserDetails userDetails;
+    private Optional<User> user;
+    private Cart cart;
+    private List<CartItem> cartItems;
 
-    public MainView(ItemService itemService, ImageService imageService, ItemSaleTypeService itemSaleTypeService){
+    public MainView(ItemService itemService, ImageService imageService, ItemSaleTypeService itemSaleTypeService,
+            CartService cartService, CartItemService cartItemService, AuthenticationContext authenticationContext,
+                    UserService userService){
         this.itemService = itemService;
         this.imageService = imageService;
         this.itemSaleTypeService = itemSaleTypeService;
+        this.cartService = cartService;
+        this.cartItemService = cartItemService;
+        this.authContext = authenticationContext;
+        this.userService = userService;
+        userDetails = authContext.getAuthenticatedUser(UserDetails.class).get();
+        user = userService.getUserByUsername(userDetails.getUsername());
+        cart = cartService.getCartByUser(user.get().getId());
+        cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
+
+
 //        H1 title = new H1("Hello World");
 //        add(title);
 
