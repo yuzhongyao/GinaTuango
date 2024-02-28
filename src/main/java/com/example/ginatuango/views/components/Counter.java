@@ -10,7 +10,7 @@ public class Counter extends Div {
         this.getStyle().setPadding("0px");
 
         Span spanCount = new Span(String.valueOf(count));
-        spanCount.getElement().getThemeList().add("badge pill small contrast");
+        spanCount.getElement().getThemeList().add("badge pill small primary");
         spanCount.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
         add(spanCount);
     }
