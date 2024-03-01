@@ -22,5 +22,7 @@ public class CartItemService {
     }
 
 
-
+    public void addCartItem(CartItem cartItem) {
+        cartItemRepository.save(cartItem);
+    }
 }

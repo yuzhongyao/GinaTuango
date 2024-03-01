@@ -2,6 +2,7 @@ package com.example.ginatuango.views;
 
 import com.example.ginatuango.data.entities.*;
 import com.example.ginatuango.services.*;
+import com.example.ginatuango.utils.UTILS;
 import com.example.ginatuango.views.components.Line;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Html;
@@ -11,6 +12,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.*;
@@ -115,7 +117,19 @@ public class MainView extends VerticalLayout {
             Button addToCart = new Button();
             addToCart.setText("Add To Cart");
             addToCart.addClickListener(buttonClickEvent -> {
+                try{
+                    if(categoryComboBox.getValue() == null || quantity.getValue() ==0){
+                        throw new Exception();
+                    }
 
+                    CartItem cartItem = new CartItem(cart.getCart_id(), item,quantity.getValue(), categoryComboBox.getValue());
+                    cartItemService.addCartItem(cartItem);
+                    cartItems.add(cartItem);
+
+                    UTILS.showNotification(new Notification(),"Added to cart",true);
+                }catch (Exception e){
+                    UTILS.showNotification(new Notification(),"Error adding to cart", false);
+                }
             });
 
 
