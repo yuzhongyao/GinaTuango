@@ -12,6 +12,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -125,6 +126,11 @@ public class MainView extends VerticalLayout {
                     CartItem cartItem = new CartItem(cart.getCart_id(), item,quantity.getValue(), categoryComboBox.getValue());
                     cartItemService.addCartItem(cartItem);
                     cartItems.add(cartItem);
+                    Span span = new Span(String.valueOf(cartItems.size()));
+                    span.getElement().getThemeList().add("badge pill small primary");
+                    span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
+
+                    UserLayout.counter.setSpanCount(span);
 
                     UTILS.showNotification(new Notification(),"Added to cart",true);
                 }catch (Exception e){

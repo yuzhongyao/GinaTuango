@@ -35,6 +35,7 @@ public class UserLayout extends AppLayout {
     private final CartItemService cartItemService;
     private final UserService userService;
     private final VerticalLayout drawerList = new VerticalLayout();
+    public static Counter counter;
 
     public UserLayout(AuthenticationContext authContext, UserService userService, CartService cartService, CartItemService cartItemService){
         this.authContext = authContext;
@@ -66,7 +67,8 @@ public class UserLayout extends AppLayout {
         cartButtonDiv.setSpacing(false);
         Button cartButton = new Button();
         cartButton.setIcon(VaadinIcon.CART.create());
-        cartButtonDiv.add(cartButton, new Counter(cartItems.size()));
+        counter = new Counter(cartItems.size());
+        cartButtonDiv.add(cartButton, counter);
 
         div.add(cartButtonDiv, toggle);
 
