@@ -36,6 +36,7 @@ public class UserLayout extends AppLayout {
     private final UserService userService;
     private final VerticalLayout drawerList = new VerticalLayout();
     public static Counter counter;
+    protected List<CartItem> cartItems;
 
     public UserLayout(AuthenticationContext authContext, UserService userService, CartService cartService, CartItemService cartItemService){
         this.authContext = authContext;
@@ -51,7 +52,7 @@ public class UserLayout extends AppLayout {
         UserDetails userDetails = authContext.getAuthenticatedUser(UserDetails.class).get();
         Optional<User> user = userService.getUserByUsername(userDetails.getUsername());
         Cart cart =cartService.getCartByUser(user.get().getId());
-        List<CartItem> cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
+        cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
 
         HorizontalLayout header = new HorizontalLayout();
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
