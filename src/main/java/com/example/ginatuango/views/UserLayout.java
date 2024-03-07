@@ -69,7 +69,12 @@ public class UserLayout extends AppLayout {
         Button cartButton = new Button();
         cartButton.setIcon(VaadinIcon.CART.create());
         counter = new Counter(cartItems.size());
-        cartButtonDiv.add(cartButton, counter);
+
+        cartButtonDiv.add(cartButton);
+        if(cartItems.size() > 0){
+            cartButtonDiv.add(counter);
+        }
+
 
         div.add(cartButtonDiv, toggle);
 
