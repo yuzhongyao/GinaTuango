@@ -25,4 +25,12 @@ public class CartItemService {
     public void addCartItem(CartItem cartItem) {
         cartItemRepository.save(cartItem);
     }
+
+    public CartItem getCartItemByCartAndItemAndType(int cartId, int itemId, int typeId){
+        return cartItemRepository.getCartItemByCartAndItemAndType(cartId, itemId, typeId);
+    }
+
+    public void updateCartItem(CartItem cartItem){
+        cartItemRepository.save(cartItem);
+    }
 }

@@ -2,28 +2,39 @@ package com.example.ginatuango.views;
 
 import com.example.ginatuango.data.entities.Cart;
 import com.example.ginatuango.data.entities.CartItem;
+import com.example.ginatuango.data.entities.Image;
 import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.CartItemService;
 import com.example.ginatuango.services.CartService;
+import com.example.ginatuango.services.ImageService;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.admin.AdminDashboardView;
 import com.example.ginatuango.views.components.Counter;
 import com.example.ginatuango.views.user.UserAccountView;
 import com.example.ginatuango.views.user.UserOrdersView;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H6;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.NumberField;
+import com.vaadin.flow.component.virtuallist.VirtualList;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,15 +45,19 @@ public class UserLayout extends AppLayout {
     private final CartService cartService;
     private final CartItemService cartItemService;
     private final UserService userService;
+    private final ImageService imageService;
     private final VerticalLayout drawerList = new VerticalLayout();
     public static Counter counter;
     protected List<CartItem> cartItems;
 
-    public UserLayout(AuthenticationContext authContext, UserService userService, CartService cartService, CartItemService cartItemService){
+    public UserLayout(AuthenticationContext authContext, UserService userService,
+                      CartService cartService, CartItemService cartItemService,
+                      ImageService imageService){
         this.authContext = authContext;
         this.userService = userService;
         this.cartService = cartService;
         this.cartItemService = cartItemService;
+        this.imageService = imageService;
         createHeader();
         createDrawer();
         this.setDrawerOpened(false);
@@ -68,6 +83,52 @@ public class UserLayout extends AppLayout {
         cartButtonDiv.setSpacing(false);
         Button cartButton = new Button();
         cartButton.setIcon(VaadinIcon.CART.create());
+
+        cartButton.addClickListener(buttonClickEvent -> {
+            cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
+            Dialog cartPopup = new Dialog();
+            cartPopup.setWidthFull();
+            cartPopup.setHeaderTitle("Cart");
+
+            VirtualList<CartItem> cartItemVirtualList = new VirtualList<>();
+            ComponentRenderer<Component,CartItem> cartItemComponentRenderer = new ComponentRenderer<>(cartItem -> {
+
+                //get images
+                List<Image> imagesUrls = imageService.getImagesByItemId(cartItem.getItem().getId());
+
+                VerticalLayout card = new VerticalLayout();
+                HorizontalLayout horizontalLayout = new HorizontalLayout();
+
+                com.vaadin.flow.component.html.Image image = new com.vaadin.flow.component.html.Image();
+                image.setSrc(imagesUrls.get(0).getImageUrl());
+                image.setMaxHeight("150px");
+                image.setMaxWidth("150px");
+
+                VerticalLayout info = new VerticalLayout();
+                H6 cartItemTitle = new H6(cartItem.getItem().getName());
+                Text type = new Text(cartItem.getType().getType());
+                NumberField quantityField = new NumberField();
+                quantityField.setMin(0);
+                quantityField.setMaxWidth("100px");
+                quantityField.setValue(cartItem.getQuantity());
+
+                info.add(cartItemTitle,type,quantityField);
+
+                horizontalLayout.add(image,info);
+                card.add(horizontalLayout);
+
+                return card;
+            });
+
+            Button close = new Button("Close", (e) -> cartPopup.close());
+            close.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+
+            cartItemVirtualList.setItems(cartItems);
+            cartItemVirtualList.setRenderer(cartItemComponentRenderer);
+            cartPopup.add(cartItemVirtualList);
+            cartPopup.getFooter().add(close);
+            cartPopup.open();
+        });
         counter = new Counter(cartItems.size());
 
         cartButtonDiv.add(cartButton);

@@ -118,19 +118,31 @@ public class MainView extends VerticalLayout {
             Button addToCart = new Button();
             addToCart.setText("Add To Cart");
             addToCart.addClickListener(buttonClickEvent -> {
+
                 try{
                     if(categoryComboBox.getValue() == null || quantity.getValue() ==0){
                         throw new Exception();
                     }
+                    CartItem exists = cartItemService.getCartItemByCartAndItemAndType(cart.getCart_id(),
+                            item.getId(), categoryComboBox.getValue().getId());
 
-                    CartItem cartItem = new CartItem(cart.getCart_id(), item,quantity.getValue(), categoryComboBox.getValue());
-                    cartItemService.addCartItem(cartItem);
-                    cartItems.add(cartItem);
-                    Span span = new Span(String.valueOf(cartItems.size()));
-                    span.getElement().getThemeList().add("badge pill small primary");
-                    span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
+                    //if not already in cart
+                    if(exists == null){
+                        CartItem cartItem = new CartItem(cart.getCart_id(), item,quantity.getValue(), categoryComboBox.getValue());
+                        cartItemService.addCartItem(cartItem);
+                        cartItems.add(cartItem);
+                        Span span = new Span(String.valueOf(cartItems.size()));
+                        span.getElement().getThemeList().add("badge pill small primary");
+                        span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
 
-                    UserLayout.counter.setSpanCount(span);
+                        UserLayout.counter.setSpanCount(span);
+                    }
+                    //update cartitem to increment quantity
+                    else{
+                        exists.setQuantity(exists.getQuantity() + Double.parseDouble(quantity.getValue().toString()));
+                        cartItemService.updateCartItem(exists);
+                    }
+
 
                     UTILS.showNotification(new Notification(),"Added to cart",true);
                 }catch (Exception e){
