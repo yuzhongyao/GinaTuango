@@ -8,6 +8,7 @@ import com.example.ginatuango.services.CartItemService;
 import com.example.ginatuango.services.CartService;
 import com.example.ginatuango.services.ImageService;
 import com.example.ginatuango.services.UserService;
+import com.example.ginatuango.utils.UTILS;
 import com.example.ginatuango.views.admin.AdminDashboardView;
 import com.example.ginatuango.views.components.Counter;
 import com.example.ginatuango.views.user.UserAccountView;
@@ -22,7 +23,9 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H6;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -114,7 +117,25 @@ public class UserLayout extends AppLayout {
 
                 info.add(cartItemTitle,type,quantityField);
 
-                horizontalLayout.add(image,info);
+                Button delete = new Button();
+                delete.setText("Delete");
+                delete.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
+                delete.addClickListener(buttonClickEvent1 -> {
+                    cartItemService.deleteById(cartItem);
+                    cartItems.remove(cartItem);
+                    cartItemVirtualList.setItems(cartItems);
+                    
+                    Span span = new Span(String.valueOf(cartItems.size()));
+                    span.getElement().getThemeList().add("badge pill small primary");
+                    span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
+
+                    UserLayout.counter.setSpanCount(span);
+
+                    UTILS.showNotification(new Notification(),"Removed from cart",true);
+
+                });
+
+                horizontalLayout.add(image,info,delete);
                 card.add(horizontalLayout);
 
                 return card;

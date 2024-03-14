@@ -33,4 +33,8 @@ public class CartItemService {
     public void updateCartItem(CartItem cartItem){
         cartItemRepository.save(cartItem);
     }
+
+    public void deleteById(CartItem cartItem) {
+        cartItemRepository.delete(cartItem);
+    }
 }
