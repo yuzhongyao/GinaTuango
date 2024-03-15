@@ -4,13 +4,13 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 
 public class Counter extends Div {
-
+    private int count;
     private Span spanCount;
     public Counter(int count){
         this.getStyle().setMargin("0px");
         this.getStyle().setPadding("0px");
-
-        spanCount = new Span(String.valueOf(count));
+        this.count = count;
+        spanCount = new Span(String.valueOf(this.count));
         spanCount.getElement().getThemeList().add("badge pill small primary");
         spanCount.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
         add(spanCount);
@@ -24,5 +24,18 @@ public class Counter extends Div {
         this.removeAll();
         this.spanCount = spanCount;
         add(spanCount);
+    }
+    public void increment (){
+        this.count++;
+        this.spanCount.setText(String.valueOf(this.count));
+    }
+    public void decrement (){
+        if(count == 1 || count == 0){
+            this.count = 0;
+        }
+        else{
+            this.count--;
+        }
+        this.spanCount.setText(String.valueOf(this.count));
     }
 }

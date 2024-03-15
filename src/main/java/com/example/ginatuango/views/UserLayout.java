@@ -129,12 +129,14 @@ public class UserLayout extends AppLayout {
                     cartItems.remove(cartItems.indexOf(cartItem));
                     cartItemService.deleteById(cartItem);
                     cartItemVirtualList.setItems(cartItems);
+                    cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
 
-                    Span span = new Span(String.valueOf(cartItems.size()));
-                    span.getElement().getThemeList().add("badge pill small primary");
-                    span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
-
-                    UserLayout.counter.setSpanCount(span);
+//                    Span span = new Span(String.valueOf(cartItems.size()));
+//                    span.getElement().getThemeList().add("badge pill small primary");
+//                    span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
+//
+//                    UserLayout.counter.setSpanCount(span);
+                    UserLayout.counter.decrement();
 
                     UTILS.showNotification(new Notification(),"Removed from cart",true);
 
