@@ -130,7 +130,8 @@ public class MainView extends VerticalLayout {
                     if(exists == null){
                         CartItem cartItem = new CartItem(cart.getCart_id(), item,quantity.getValue(), categoryComboBox.getValue());
                         cartItemService.addCartItem(cartItem);
-                        cartItems.add(cartItem);
+//                        cartItems.add(cartItem);
+                        cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
                         Span span = new Span(String.valueOf(cartItems.size()));
                         span.getElement().getThemeList().add("badge pill small primary");
                         span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");

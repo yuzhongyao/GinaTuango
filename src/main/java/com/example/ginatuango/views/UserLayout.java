@@ -93,6 +93,11 @@ public class UserLayout extends AppLayout {
             cartPopup.setWidthFull();
             cartPopup.setHeaderTitle("Cart");
 
+            if (cartItems.isEmpty()) {
+                Text emptyCartMessage = new Text("Empty cart");
+                cartPopup.add(emptyCartMessage);
+            }
+
             VirtualList<CartItem> cartItemVirtualList = new VirtualList<>();
             ComponentRenderer<Component,CartItem> cartItemComponentRenderer = new ComponentRenderer<>(cartItem -> {
 
@@ -121,10 +126,10 @@ public class UserLayout extends AppLayout {
                 delete.setText("Delete");
                 delete.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_ERROR);
                 delete.addClickListener(buttonClickEvent1 -> {
+                    cartItems.remove(cartItems.indexOf(cartItem));
                     cartItemService.deleteById(cartItem);
-                    cartItems.remove(cartItem);
                     cartItemVirtualList.setItems(cartItems);
-                    
+
                     Span span = new Span(String.valueOf(cartItems.size()));
                     span.getElement().getThemeList().add("badge pill small primary");
                     span.getStyle().set("margin-inline-start", "var(--lumo-space-s)");
