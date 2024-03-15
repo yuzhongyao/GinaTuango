@@ -160,9 +160,9 @@ public class UserLayout extends AppLayout {
         counter = new Counter(cartItems.size());
 
         cartButtonDiv.add(cartButton);
-        if(cartItems.size() > 0){
-            cartButtonDiv.add(counter);
-        }
+
+        cartButtonDiv.add(counter);
+
 
 
         div.add(cartButtonDiv, toggle);
