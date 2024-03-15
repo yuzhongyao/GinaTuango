@@ -128,8 +128,8 @@ public class UserLayout extends AppLayout {
                 delete.addClickListener(buttonClickEvent1 -> {
                     cartItems.remove(cartItems.indexOf(cartItem));
                     cartItemService.deleteById(cartItem);
-                    cartItemVirtualList.setItems(cartItems);
                     cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
+                    cartItemVirtualList.setItems(cartItems);
 
 //                    Span span = new Span(String.valueOf(cartItems.size()));
 //                    span.getElement().getThemeList().add("badge pill small primary");
