@@ -105,7 +105,15 @@ public class UserLayout extends AppLayout {
                 List<Image> imagesUrls = imageService.getImagesByItemId(cartItem.getItem().getId());
 
                 VerticalLayout card = new VerticalLayout();
+                card.addClassName("card");
+                card.setSpacing(false);
+
                 HorizontalLayout horizontalLayout = new HorizontalLayout();
+                horizontalLayout.addClassName("cardHorizontal");
+                horizontalLayout.setPadding(false);
+                horizontalLayout.setMargin(false);
+
+
 
                 com.vaadin.flow.component.html.Image image = new com.vaadin.flow.component.html.Image();
                 image.setSrc(imagesUrls.get(0).getImageUrl());
@@ -122,6 +130,10 @@ public class UserLayout extends AppLayout {
                 quantityField.setValue(cartItem.getQuantity());
 
                 info.add(cartItemTitle,type,quantityField);
+                info.setPadding(false);
+                info.setMargin(false);
+
+                VerticalLayout buttons = new VerticalLayout();
 
                 Button delete = new Button();
                 delete.setText("Delete");
@@ -140,10 +152,20 @@ public class UserLayout extends AppLayout {
                     UserLayout.counter.decrement();
 
                     UTILS.showNotification(new Notification(),"Removed from cart",true);
+                });
+
+                Button save = new Button();
+                save.setText("Save");
+                save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+                save.addClickListener(buttonClickEvent1 -> {
+                    cartItem.setQuantity(quantityField.getValue());
+                    cartItemService.updateCartItem(cartItem);
+                    UTILS.showNotification(new Notification(),"Updated cart",true);
 
                 });
 
-                horizontalLayout.add(image,info,delete);
+                buttons.add(delete,save);
+                horizontalLayout.add(image,info,buttons);
                 card.add(horizontalLayout);
 
                 return card;
