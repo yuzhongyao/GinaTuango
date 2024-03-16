@@ -117,6 +117,7 @@ public class UserLayout extends AppLayout {
                 Text type = new Text(cartItem.getType().getType());
                 NumberField quantityField = new NumberField();
                 quantityField.setMin(0);
+                quantityField.setStepButtonsVisible(true);
                 quantityField.setMaxWidth("100px");
                 quantityField.setValue(cartItem.getQuantity());
 
