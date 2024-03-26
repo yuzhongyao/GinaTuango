@@ -16,6 +16,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
@@ -34,6 +35,8 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -90,6 +93,32 @@ public class UserLayout extends AppLayout {
             Dialog cartPopup = new Dialog();
             cartPopup.setWidthFull();
             cartPopup.setHeaderTitle("Cart");
+
+            //date picker
+            DatePicker datePicker = new DatePicker("Order Date\nYYYY-MM-DD");
+            DatePicker.DatePickerI18n singleFormatI18n = new DatePicker.DatePickerI18n();
+            singleFormatI18n.setDateFormat("yyyy-MM-dd");
+            datePicker.setI18n(singleFormatI18n);
+
+            LocalDate today = LocalDate.now(ZoneId.systemDefault());
+            datePicker.setMin(today);
+            datePicker.setMax(today.plusDays(7));
+
+            datePicker.addValueChangeListener(datePickerLocalDateComponentValueChangeEvent -> {
+                LocalDate value = datePicker.getValue();
+                String errorMessage = null;
+                if (value != null) {
+                    if (value.compareTo(datePicker.getMin()) < 0) {
+                        errorMessage = "Too early, choose later date";
+                    } else if (value.compareTo(datePicker.getMax()) > 0) {
+                        errorMessage = "Too late, choose earlier date";
+                    }
+                }
+                datePicker.setErrorMessage(errorMessage);
+
+            });
+
+            cartPopup.add(datePicker);
 
             if (cartItems.isEmpty()) {
                 Text emptyCartMessage = new Text("Empty cart");
