@@ -144,8 +144,10 @@ public class UserLayout extends AppLayout {
 
                 com.vaadin.flow.component.html.Image image = new com.vaadin.flow.component.html.Image();
                 image.setSrc(imagesUrls.get(0).getImageUrl());
-                image.setMaxHeight("150px");
-                image.setMaxWidth("150px");
+                image.setMaxHeight("200px");
+                image.setMaxWidth("200px");
+                image.setMinHeight("150px");
+                image.setMinWidth("150px");
 
                 VerticalLayout info = new VerticalLayout();
                 H6 cartItemTitle = new H6(cartItem.getItem().getName());
