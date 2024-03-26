@@ -1,9 +1,6 @@
 package com.example.ginatuango.views;
 
-import com.example.ginatuango.data.entities.Cart;
-import com.example.ginatuango.data.entities.CartItem;
-import com.example.ginatuango.data.entities.Image;
-import com.example.ginatuango.data.entities.User;
+import com.example.ginatuango.data.entities.*;
 import com.example.ginatuango.services.CartItemService;
 import com.example.ginatuango.services.CartService;
 import com.example.ginatuango.services.ImageService;
@@ -52,6 +49,7 @@ public class UserLayout extends AppLayout {
     private final VerticalLayout drawerList = new VerticalLayout();
     public static Counter counter;
     protected List<CartItem> cartItems;
+    protected Optional<User> user;
 
     public UserLayout(AuthenticationContext authContext, UserService userService,
                       CartService cartService, CartItemService cartItemService,
@@ -68,7 +66,7 @@ public class UserLayout extends AppLayout {
 
     private void createHeader() {
         UserDetails userDetails = authContext.getAuthenticatedUser(UserDetails.class).get();
-        Optional<User> user = userService.getUserByUsername(userDetails.getUsername());
+        user = userService.getUserByUsername(userDetails.getUsername());
         Cart cart =cartService.getCartByUser(user.get().getId());
         cartItems = cartItemService.getCartItemsByCart(cart.getCart_id());
 
@@ -174,10 +172,16 @@ public class UserLayout extends AppLayout {
             Button close = new Button("Close", (e) -> cartPopup.close());
             close.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
+            Button order = new Button("Order");
+            order.addThemeVariants(ButtonVariant.LUMO_SUCCESS, ButtonVariant.LUMO_PRIMARY);
+            order.addClickListener(buttonClickEvent1 -> {
+
+            });
+
             cartItemVirtualList.setItems(cartItems);
             cartItemVirtualList.setRenderer(cartItemComponentRenderer);
             cartPopup.add(cartItemVirtualList);
-            cartPopup.getFooter().add(close);
+            cartPopup.getFooter().add(order,close);
             cartPopup.open();
         });
         counter = new Counter(cartItems.size());

@@ -22,8 +22,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(int id, User user, LocalDate date) {
-        this.order_id = id;
+    public Order( User user, LocalDate date) {
+
         this.user = user;
         this.sale_date = date;
     }

@@ -49,9 +49,9 @@ public class AdminDashboardView extends VerticalLayout implements BeforeEnterObs
         title.setWidthFull();
 
         //date picker
-        DatePicker datePicker = new DatePicker("Order Date\nYYYY/MM/DD");
+        DatePicker datePicker = new DatePicker("Order Date\nYYYY-MM-DD");
         DatePicker.DatePickerI18n singleFormatI18n = new DatePicker.DatePickerI18n();
-        singleFormatI18n.setDateFormat("yyyy/M/d");
+        singleFormatI18n.setDateFormat("yyyy-MM-dd");
         datePicker.setI18n(singleFormatI18n);
 
         //To Implement
