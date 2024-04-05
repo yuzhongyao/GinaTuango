@@ -153,7 +153,7 @@ public class UserLayout extends AppLayout {
                 H6 cartItemTitle = new H6(cartItem.getItem().getName());
                 Text type = new Text(cartItem.getType().getType());
                 NumberField quantityField = new NumberField();
-                quantityField.setMin(0);
+                quantityField.setMin(1);
                 quantityField.setStepButtonsVisible(true);
                 quantityField.setMaxWidth("100px");
                 quantityField.setValue(cartItem.getQuantity());
@@ -187,6 +187,10 @@ public class UserLayout extends AppLayout {
                 save.setText("Save");
                 save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
                 save.addClickListener(buttonClickEvent1 -> {
+                    if(quantityField.getValue() <= 0){
+                        UTILS.showNotification(new Notification(),"Please delete from cart",false);
+                        return;
+                    }
                     cartItem.setQuantity(quantityField.getValue());
                     cartItemService.updateCartItem(cartItem);
                     UTILS.showNotification(new Notification(),"Updated cart",true);
