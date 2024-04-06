@@ -37,4 +37,11 @@ public class CartItemService {
     public void deleteById(CartItem cartItem) {
         cartItemRepository.delete(cartItem);
     }
+
+    public void deleteAll(List<CartItem> cartItems) {
+        cartItemRepository.deleteAll(cartItems);
+    }
+
+
+
 }

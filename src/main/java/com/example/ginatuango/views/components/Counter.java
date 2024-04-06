@@ -38,4 +38,10 @@ public class Counter extends Div {
         }
         this.spanCount.setText(String.valueOf(this.count));
     }
+
+    public void setCount(int count){
+        this.count = count;
+        this.spanCount.setText(String.valueOf(this.count));
+
+    }
 }

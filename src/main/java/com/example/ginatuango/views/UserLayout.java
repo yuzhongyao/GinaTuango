@@ -1,10 +1,7 @@
 package com.example.ginatuango.views;
 
 import com.example.ginatuango.data.entities.*;
-import com.example.ginatuango.services.CartItemService;
-import com.example.ginatuango.services.CartService;
-import com.example.ginatuango.services.ImageService;
-import com.example.ginatuango.services.UserService;
+import com.example.ginatuango.services.*;
 import com.example.ginatuango.utils.UTILS;
 import com.example.ginatuango.views.admin.AdminDashboardView;
 import com.example.ginatuango.views.components.Counter;
@@ -47,8 +44,10 @@ public class UserLayout extends AppLayout {
     private final transient AuthenticationContext authContext;
     private final CartService cartService;
     private final CartItemService cartItemService;
+    private final OrderService orderService;
     private final UserService userService;
     private final ImageService imageService;
+    private final ItemSaleService itemSaleService;
     private final VerticalLayout drawerList = new VerticalLayout();
     public static Counter counter;
     protected List<CartItem> cartItems;
@@ -56,12 +55,14 @@ public class UserLayout extends AppLayout {
 
     public UserLayout(AuthenticationContext authContext, UserService userService,
                       CartService cartService, CartItemService cartItemService,
-                      ImageService imageService){
+                      ImageService imageService, OrderService orderService, ItemSaleService itemSaleService){
         this.authContext = authContext;
         this.userService = userService;
         this.cartService = cartService;
         this.cartItemService = cartItemService;
         this.imageService = imageService;
+        this.orderService = orderService;
+        this.itemSaleService = itemSaleService;
         createHeader();
         createDrawer();
         this.setDrawerOpened(false);
@@ -101,7 +102,7 @@ public class UserLayout extends AppLayout {
             datePicker.setI18n(singleFormatI18n);
 
             LocalDate today = LocalDate.now(ZoneId.systemDefault());
-            datePicker.setMin(today);
+            datePicker.setMin(today.plusDays(1));
             datePicker.setMax(today.plusDays(7));
 
             datePicker.addValueChangeListener(datePickerLocalDateComponentValueChangeEvent -> {
@@ -210,6 +211,39 @@ public class UserLayout extends AppLayout {
             Button order = new Button("Order");
             order.addThemeVariants(ButtonVariant.LUMO_SUCCESS, ButtonVariant.LUMO_PRIMARY);
             order.addClickListener(buttonClickEvent1 -> {
+                try{
+                    LocalDate date = datePicker.getValue();
+
+                    Order o = new Order();
+                    o.setUser(user.get());
+                    o.setDate(date);
+
+                    List<ItemSale> itemSales = new ArrayList<>();
+                    for(CartItem cartItem : cartItems){
+                        ItemSale is = new ItemSale();
+                        is.setDate(date);
+                        is.setCost(0.0);
+                        is.setQuantity(cartItem.getQuantity());
+                        is.setItem(cartItem.getItem());
+                        is.setOnSale(false);
+                        is.setOrder(o);
+                        is.setType(cartItem.getType());
+
+                        itemSales.add(is);
+                    }
+
+                    orderService.saveOrder(o);
+                    itemSaleService.saveItemSales(itemSales);
+                    cartItemService.deleteAll(cartItems);
+                    cartItems.clear();
+
+
+                    UTILS.showNotification(new Notification(),"Ordered Submitted", true);
+                    UserLayout.counter.setCount(0);
+
+                }catch (Exception e){
+
+                }
 
             });
 
