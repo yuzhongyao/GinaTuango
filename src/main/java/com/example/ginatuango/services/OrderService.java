@@ -37,6 +37,10 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    public boolean isUserOrder(int userId, int orderId){
+        return orderRepository.isUserOrder(userId, orderId);
+    }
+
 
 
 }

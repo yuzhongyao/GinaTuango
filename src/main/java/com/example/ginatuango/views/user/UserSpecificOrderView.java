@@ -4,9 +4,13 @@ import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.ItemSaleService;
 import com.example.ginatuango.services.OrderService;
 import com.example.ginatuango.services.UserService;
+import com.example.ginatuango.utils.UTILS;
 import com.example.ginatuango.views.AdminLayout;
+import com.example.ginatuango.views.MainView;
 import com.example.ginatuango.views.UserLayout;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import jakarta.annotation.security.RolesAllowed;
@@ -46,5 +50,10 @@ public class UserSpecificOrderView extends Div implements HasUrlParameter<Intege
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+//        UTILS.showNotification(new Notification(), Boolean.toString(orderService.isUserOrder(user.get().getId(), integer)), true);
+        if(!orderService.isUserOrder(user.get().getId(), integer)){
+            beforeEnterEvent.rerouteTo(UserOrdersView.class);
+        }
     }
+
 }

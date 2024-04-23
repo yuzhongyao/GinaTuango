@@ -36,8 +36,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "    u.user_name, i.item_name, ist.type_name, ii.sale_date, ii.item_cost, ii.isOnSale\n" +
             "ORDER BY\n" +
             "    ii.sale_date DESC;",nativeQuery = true)
-    public List<Object[]> getItemSalesByOrder(@Param("orderId")int orderId);
+    List<Object[]> getItemSalesByOrder(@Param("orderId")int orderId);
 
     List<Order> findByUser(User user);
 
+    @Query(value = "SELECT EXISTS (SELECT 1 FROM orders AS o WHERE o.order_id = :orderId AND o.user_id =:userId);\n", nativeQuery = true)
+    boolean isUserOrder(@Param("userId") int userId, @Param("orderId") int orderId);
 }
