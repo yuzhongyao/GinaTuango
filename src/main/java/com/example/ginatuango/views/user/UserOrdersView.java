@@ -7,6 +7,7 @@ import com.example.ginatuango.services.ItemSaleService;
 import com.example.ginatuango.services.OrderService;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.views.UserLayout;
+import com.example.ginatuango.views.admin.AdminSpecificOrderView;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -57,7 +58,11 @@ public class UserOrdersView extends VerticalLayout implements  BeforeEnterObserv
         orderGrid.setDataProvider(dataProvider);
         orderGrid.addColumn(order -> order.getDate()).setHeader("Date");
         orderGrid.addColumn(order -> order.getUser().getName()).setHeader("User");
-        orderGrid.addColumn(order -> order.getUser().getId()).setHeader("User ID");
+        orderGrid.addItemClickListener(orderItemClickEvent -> {
+            orderGrid.getUI().ifPresent(ui -> ui.navigate(
+                    UserSpecificOrderView.class, (Integer) orderItemClickEvent.getItem().getId()));
+        });
+//        orderGrid.addColumn(order -> order.getUser().getId()).setHeader("User ID");
     }
 
 
