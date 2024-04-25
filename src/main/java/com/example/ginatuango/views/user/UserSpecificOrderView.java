@@ -71,7 +71,6 @@ public class UserSpecificOrderView extends Div implements HasUrlParameter<Intege
         orderGrid.addColumn(arr -> arr[5]).setHeader("Cost");
         orderGrid.addColumn(arr -> arr[6]).setHeader("On Sale");
 
-        orderGrid.
 
     }
 
