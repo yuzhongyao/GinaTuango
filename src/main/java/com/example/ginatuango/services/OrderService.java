@@ -32,4 +32,15 @@ public class OrderService {
     public List<Order> getOrdersByUser(User user){return orderRepository.findByUser(user);}
 
     public void deleteOrders(List<Order> orders){orderRepository.deleteAll(orders);}
+
+    public void saveOrder(Order order){
+        orderRepository.save(order);
+    }
+
+    public boolean isUserOrder(int userId, int orderId){
+        return orderRepository.isUserOrder(userId, orderId);
+    }
+
+
+
 }

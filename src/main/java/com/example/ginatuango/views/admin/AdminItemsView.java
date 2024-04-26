@@ -1,4 +1,4 @@
-package com.example.ginatuango.views;
+package com.example.ginatuango.views.admin;
 
 
 import com.example.ginatuango.data.entities.Category;
@@ -7,6 +7,7 @@ import com.example.ginatuango.data.entities.ItemSale;
 import com.example.ginatuango.data.entities.ItemSaleType;
 import com.example.ginatuango.services.*;
 import com.example.ginatuango.utils.UTILS;
+import com.example.ginatuango.views.AdminLayout;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -31,6 +32,7 @@ import com.vaadin.flow.router.RouterLink;
 import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Route(value = "/admin/items", layout = AdminLayout.class)
@@ -267,6 +269,8 @@ public class AdminItemsView extends VerticalLayout {
             TextArea description = new TextArea("Description");
             description.setValue(item.getDescription());
             ComboBox<Category> category = new ComboBox<>("Category");
+            category.setItems(categoryService.getCategories());
+            category.setItemLabelGenerator(Category::getName);
             category.setValue(item.getCategory());
             TextField stock = new TextField("Stock");
             stock.setValue(String.valueOf(item.getStock()));

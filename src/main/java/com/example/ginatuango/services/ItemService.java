@@ -35,4 +35,8 @@ public class ItemService {
         itemRepository.delete(item);
     }
 
+    public List<Item> getItemsByCategory(String category){
+        return itemRepository.getItemsByCategory(category);
+    }
+
 }

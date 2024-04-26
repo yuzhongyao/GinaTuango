@@ -32,7 +32,7 @@ public class ItemSaleService {
     }
 
 
-
-
-
+    public void saveItemSales(List<ItemSale> itemSales) {
+        itemSaleRepository.saveAll(itemSales);
+    }
 }

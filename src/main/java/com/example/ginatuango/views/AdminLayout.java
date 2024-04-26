@@ -1,5 +1,9 @@
 package com.example.ginatuango.views;
 
+import com.example.ginatuango.views.admin.AdminCustomersView;
+import com.example.ginatuango.views.admin.AdminDashboardView;
+import com.example.ginatuango.views.admin.AdminItemsView;
+import com.example.ginatuango.views.admin.AdminOrdersView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
@@ -18,8 +22,8 @@ public class AdminLayout extends AppLayout {
     public AdminLayout(AuthenticationContext authenticationContext){
         this.authContext = authenticationContext;
         createHeader();
-       createDrawer();
-       this.setDrawerOpened(false);
+        createDrawer();
+        this.setDrawerOpened(false);
     }
 
     public void createHeader(){
@@ -35,7 +39,7 @@ public class AdminLayout extends AppLayout {
         H1 title = new H1("");
         title.setText("GINA TUANGO");
         title.addClassName("center");
-        RouterLink home = new RouterLink("",AdminDashboardView.class);
+        RouterLink home = new RouterLink("", MainView.class);
         home.add(title);
 
         header.add(home,toggle);
@@ -48,8 +52,10 @@ public class AdminLayout extends AppLayout {
 
         VerticalLayout list = new VerticalLayout();
 
-        RouterLink home = new RouterLink("Home", AdminDashboardView.class);
+        RouterLink home = new RouterLink("Home", MainView.class);
         home.setHighlightCondition(HighlightConditions.sameLocation());
+
+        RouterLink dashboard = new RouterLink("Dashboard", AdminDashboardView.class);
 
         RouterLink orders = new RouterLink("Orders", AdminOrdersView.class);
         RouterLink customers = new RouterLink("Customers", AdminCustomersView.class);
@@ -62,7 +68,7 @@ public class AdminLayout extends AppLayout {
             authContext.logout();;
         });
 
-        list.add(home,orders,customers,items,logout);
+        list.add(home,dashboard,orders,customers,items,logout);
         addToDrawer(list);
 
 

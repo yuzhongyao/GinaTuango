@@ -1,4 +1,4 @@
-package com.example.ginatuango.views;
+package com.example.ginatuango.views.admin;
 
 
 import com.example.ginatuango.data.entities.Address;
@@ -6,6 +6,7 @@ import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.AddressService;
 import com.example.ginatuango.services.UserService;
 import com.example.ginatuango.utils.UTILS;
+import com.example.ginatuango.views.AdminLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;

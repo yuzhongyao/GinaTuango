@@ -1,6 +1,7 @@
-package com.example.ginatuango.views;
+package com.example.ginatuango.views.admin;
 
 import com.example.ginatuango.services.OrderService;
+import com.example.ginatuango.views.AdminLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

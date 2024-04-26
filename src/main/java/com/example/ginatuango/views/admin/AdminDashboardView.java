@@ -1,8 +1,9 @@
-package com.example.ginatuango.views;
+package com.example.ginatuango.views.admin;
 
 
 import com.example.ginatuango.data.entities.User;
 import com.example.ginatuango.services.CustomService;
+import com.example.ginatuango.views.AdminLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
@@ -48,9 +49,9 @@ public class AdminDashboardView extends VerticalLayout implements BeforeEnterObs
         title.setWidthFull();
 
         //date picker
-        DatePicker datePicker = new DatePicker("Order Date\nYYYY/MM/DD");
+        DatePicker datePicker = new DatePicker("Order Date\nYYYY-MM-DD");
         DatePicker.DatePickerI18n singleFormatI18n = new DatePicker.DatePickerI18n();
-        singleFormatI18n.setDateFormat("yyyy/M/d");
+        singleFormatI18n.setDateFormat("yyyy-MM-dd");
         datePicker.setI18n(singleFormatI18n);
 
         //To Implement
